@@ -1,13 +1,13 @@
 const { Dog, Temperament} = require("../db");
 const axios = require("axios");
 require("dotenv").config();
-const { APIKEY } = process.env;
+const { API, APIKEY } = process.env;
 
 
 
-
+//dogs de API
 const getApiInfo = async () => {
-    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?key=${APIKEY}`);
+    const apiUrl = await axios.get(`${API}?key=${APIKEY}`);
     const apiInfo = await apiUrl.data.map(el => {
         return {
             name: el.name,
@@ -21,6 +21,8 @@ const getApiInfo = async () => {
     return apiInfo
 };
 
+
+//dogs de DB
 const getDbInfo = async () => {
     return await Dog.findAll({
         include:{
@@ -33,6 +35,7 @@ const getDbInfo = async () => {
     })
 }
 
+//dogs de API + DB
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
     const DbInfo = await getDbInfo();
@@ -40,9 +43,25 @@ const getAllDogs = async () => {
     return infoTotal;
 };
 
+//dog por ID
+
+
+
+const getDogByID = async (id) => {
+    if(isNaN(id)){
+        return await getDogByPK(id)
+    }
+    return axios.get(`${API}/${id}?key=${APIKEY}`)
+    .then(res => res.data)
+    .catch(error => {
+        throw new Error(error.message);
+    });
+}
+
 
 module.exports = {
     getApiInfo,
     getDbInfo,
     getAllDogs,
+    getDogByID
 }

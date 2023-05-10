@@ -1,9 +1,12 @@
 //  const { router } = require("../app");
 const { getAllDogs } = require("../controllers/dogsControllers.js");
-
 const { Router } = require("express");
 const router = Router();
+const { Dog, Temperament} = require("../db.js");
+const express = require("express");
+const Sequelize = require ("sequelize");
 
+//ruta que retorna todos los dogs si no se le pasa nada por query, sino busca la query 
 router.get("/", async (req,res) =>{
     try {
         const name = req.query.name
@@ -21,6 +24,35 @@ router.get("/", async (req,res) =>{
     }
     
 })
+
+router.post("/temperaments", async (req,res) => {
+    let {
+        image,
+        name,
+        height,
+        weight,
+        life_span,
+        createdInDb,
+        temperaments  // aquí el cambio de nombre
+    } = req.body;
+
+    let dogCreated = await Dog.create({
+        image,
+        name,
+        height,
+        weight,
+        life_span,
+        createdInDb
+    })
+
+    let temperamentDB = await Temperament.findAll({
+        where: { name: temperaments } // aquí también
+    })
+
+    dogCreated.addTemperament(temperamentDB)
+    res.send("Dog creado con exito")
+
+});
 
 
 
