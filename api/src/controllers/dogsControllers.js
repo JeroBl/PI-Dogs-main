@@ -35,18 +35,16 @@ const getDbInfo = async () => {
     })
 }
 
-//dogs de API + DB
+//dogs de DB + API
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
     const DbInfo = await getDbInfo();
-    const infoTotal = await apiInfo.concat(DbInfo);
+    const infoTotal = await DbInfo.concat(apiInfo);
     return infoTotal;
 };
 
+
 //dog por ID
-
-
-
 const getDogByID = async (id) => {
     if(isNaN(id)){
         return await getDogByPK(id)
