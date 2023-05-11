@@ -45,17 +45,25 @@ const getAllDogs = async () => {
 
 
 //dog por ID
-const getDogByID = async (id) => {
-    if(isNaN(id)){
-        return await getDogByPK(id)
-    }
-    return axios.get(`${API}/${id}?key=${APIKEY}`)
-    .then(res => res.data)
-    .catch(error => {
-        throw new Error(error.message);
-    });
-}
+// const getDogByID = async (id) => {
+//     if(isNaN(id)){
+//         return await getDogByPK(id)
+//     }
+//     return axios.get(`${API}/${id}?key=${APIKEY}`)
+//     .then(res => res.data)
+//     .catch(error => {
+//         throw new Error(error.message);
+//     });
+// }
 
+const getDogByID = async (id, source) => {
+    const dog = 
+        source === "api"
+            ? (await axios.get(`${API}/${id}?key=${APIKEY}`)).data
+            : await Dog.findByPk(id);
+
+    return dog;
+}
 
 module.exports = {
     getApiInfo,
