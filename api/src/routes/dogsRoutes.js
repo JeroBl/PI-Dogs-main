@@ -25,34 +25,51 @@ router.get("/", async (req,res) =>{
     
 })
 
-router.post("/temperaments", async (req,res) => {
-    let {
-        image,
-        name,
-        height,
-        weight,
-        life_span,
-        createdInDb,
-        temperaments  // aquí el cambio de nombre
-    } = req.body;
+// router.post("/temperaments", async (req,res) => {
+//     let {
+//         image,
+//         name,
+//         height,
+//         weight,
+//         life_span,
+//         createdInDb,
+//         temperaments  // aquí el cambio de nombre
+//     } = req.body;
 
-    let dogCreated = await Dog.create({
-        image,
-        name,
-        height,
-        weight,
-        life_span,
-        createdInDb
-    })
+//     let dogCreated = await Dog.create({
+//         image,
+//         name,
+//         height,
+//         weight,
+//         life_span,
+//         createdInDb
+//     })
 
-    let temperamentDB = await Temperament.findAll({
-        where: { name: temperaments } // aquí también
-    })
+//     let temperamentDB = await Temperament.findAll({
+//         where: { name: temperaments } // aquí también
+//     })
 
-    dogCreated.addTemperament(temperamentDB)
-    res.send("Dog creado con exito")
+//     dogCreated.addTemperament(temperamentDB)
+//     res.status(200).send("Dog creado con exito")
 
-});
+// });
+
+
+router.get("/:id", async (req,res) => {
+    try {
+        const id = req.params.id;
+    const totalDogs = await getAllDogs();
+    if(id){
+        let dogId = await totalDogs.filter(el => el.id == id)
+        dogId.length?
+        res.status(200).json(dogId) :
+        res.status(404).send("No encotre el Dog")
+    }
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+})
+
 
 
 
