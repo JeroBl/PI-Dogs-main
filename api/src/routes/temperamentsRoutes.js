@@ -1,16 +1,9 @@
 const { Router } = require("express");
 const router = Router();
-const { getAllTemperaments } = require("../controllers/temperamentsControllers");
+const { getTemperamentsHandler } = require("../handlers/temperamentsHandlers");
 
 
-router.get("/", async (req, res) => {
-    const temperamentsApi = await getAllTemperaments();
-    try {
-        res.status(200).json(temperamentsApi)
-    } catch (error) {
-       res.status(404).json(error.message) 
-    }
-})
+router.get("/", getTemperamentsHandler);
 
 
 
