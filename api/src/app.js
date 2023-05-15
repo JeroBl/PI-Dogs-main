@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require("cors")
 const routes = require('./routes/index.js');
 
 require('./db.js');
@@ -14,7 +15,7 @@ server.name = 'API';
 // const temperamentsRoutes = require("./routes/temperamentsRoutes.js");
 
 
-
+server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());

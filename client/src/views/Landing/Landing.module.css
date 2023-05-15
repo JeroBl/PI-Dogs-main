@@ -1,0 +1,54 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    outline: red solid 3px;
+    height: 100vh;
+    width: 100vw;
+    background: url("https://w0.peakpx.com/wallpaper/90/953/HD-wallpaper-snowdog-sunset-black-dog-animal-winter-snow-sunsets-sunrise-white-animals-dogs-dog-night.jpg");
+    overflow: hidden;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+.divButtons{
+    display: flex;
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: 0px auto;
+    gap: 10px;
+    background: transparent;
+    color: hsl(240,30,10);
+    font: 700 14px/1 Copperplate, Papyrus, fantasy;
+    letter-spacing: 0.125em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.button {
+    background-color: #414e4d;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 1rem 2.5rem;
+    margin-top: 2rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px #414e4d;
+    transition: transform 0.2s ease-in-out;
+    font-family: cursive;
+  }
+
+
+.h1{
+    margin-top: 4%;
+    backdrop-filter: blur(3px) saturate(300%);
+    font-family: cursive;
+    color: #414e4d;
+    font-weight:900;
+    font-size: 4rem;
+}
