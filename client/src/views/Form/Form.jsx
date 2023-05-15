@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import style from "./Form.module.css"
 
 const Form = () => {
 
@@ -47,38 +48,38 @@ const Form = () => {
     }
 
     return(
-        <form onSubmit={submitHandler}>
-            <div>
+        <form onSubmit={submitHandler} className="form-container">
+            <div className="form-field">
                 <label>Nombre: </label>
-                <input type="text" value={form.name} onChange={changeHandler} name="name" />
+                <input type="text" value={form.name} onChange={changeHandler} name="name" className="form-input"/>
                 {errors.name && <span>{errors.name}</span>}
             </div>
 
             <div>
                 <label>Altura: </label>
-                <input type="text" value={form.height} onChange={changeHandler} name="height" />
+                <input type="text" value={form.height} onChange={changeHandler} name="height" className="form-input"/>
             </div>
 
             <div>
                 <label>Peso: </label>
-                <input type="text" value={form.weight} onChange={changeHandler} name="weight" />
+                <input type="text" value={form.weight} onChange={changeHandler} name="weight" className="form-input"/>
             </div>
 
             <div>
                 <label>Años de vida: </label>
-                <input type="text" value={form.life_span} onChange={changeHandler} name="life_span" />
+                <input type="text" value={form.life_span} onChange={changeHandler} name="life_span" className="form-input"/>
             </div>
 
             <div>
                 <label>Temperamentos: </label>
-                <input type="text" value={form.temperaments} onChange={changeHandler} name="temperaments" />
+                <input type="text" value={form.temperaments} onChange={changeHandler} name="temperaments" className="form-input"/>
             </div>
 
             <div>
                 <label>Imagen: </label>
-                <input type="text" value={form.image} onChange={changeHandler} name="image" />
+                <input type="text" value={form.image} onChange={changeHandler} name="image" className="form-input"/>
             </div>
-            <button type="submit">CREAR</button>
+            <button type="submit" className="form-button">CREAR</button>
             
         </form>
     )

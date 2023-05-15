@@ -7,9 +7,9 @@ const Card = (props) =>
             <p>Id:{props.id}</p>
             <img className={style.cardImage} src={props.image.url} alt={props.name} />
             <p>Name: {props.name}</p>
-            <p>Temperament: {props.temperament}</p>
+            <p className={style.temperament}>Temperament: {props.temperament}</p>
             <p>Weight: {props.weight.metric} kg</p>
-            {/* <p>Height: {props.height.metric} cm</p> */}
+            <p>Height: {props.height.metric} cm</p>
         </div>
     )
 }

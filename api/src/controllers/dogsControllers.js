@@ -16,6 +16,7 @@ const getApiInfo = async () => {
             weight: el.weight,
             life_span: el.life_span,
             id: el.id,
+            temperament:el.temperament,
         };
     });
     return apiInfo
