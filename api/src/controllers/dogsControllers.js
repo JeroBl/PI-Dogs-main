@@ -6,6 +6,7 @@ const { API, APIKEY } = process.env;
 
 
 //dogs de API
+
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`${API}?key=${APIKEY}`);
     const apiInfo = await apiUrl.data.map(el => {
@@ -24,6 +25,7 @@ const getApiInfo = async () => {
 
 
 //dogs de DB
+
 const getDbInfo = async () => {
     return await Dog.findAll({
         include:{
@@ -37,6 +39,7 @@ const getDbInfo = async () => {
 }
 
 //dogs de DB + API
+
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
     const DbInfo = await getDbInfo();
@@ -46,16 +49,6 @@ const getAllDogs = async () => {
 
 
 //dog por ID
-// const getDogByID = async (id) => {
-//     if(isNaN(id)){
-//         return await getDogByPK(id)
-//     }
-//     return axios.get(`${API}/${id}?key=${APIKEY}`)
-//     .then(res => res.data)
-//     .catch(error => {
-//         throw new Error(error.message);
-//     });
-// }
 
 const getDogByID = async (id, source) => {
     const dog = 
@@ -66,9 +59,36 @@ const getDogByID = async (id, source) => {
     return dog;
 }
 
+//dog por name
+
+const getDogByName = async (name) => {
+    const array = [];
+    const response = await axios.get(`${APIRAZA}?key=${APIKEY}&search=${name}`);
+    response.data.forEach((el) => {
+        const { name, image, height, weight, life_span, id, temperament } = el;
+        array.push({
+            name: name,
+            image: image,
+            height: height,
+            weight: weight,
+            life_span: life_span,
+            id: id,
+            temperament: temperament,
+        });
+    });
+    return array;
+};
+
+
+
+
+
 module.exports = {
     getApiInfo,
     getDbInfo,
     getAllDogs,
-    getDogByID
+    getDogByID,
+    getDogByName,
 }
+
+            

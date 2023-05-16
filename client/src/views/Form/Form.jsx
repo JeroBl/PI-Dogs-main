@@ -35,14 +35,46 @@ const Form = () => {
         
     }
 
-    const validate = (form) => {
-        if(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(form.name)){
-            setErrors({...errors, name:""})
-        }else{
-            setErrors({...errors, name:"Hay un error en el nombre"})
-        }
-        if(form.name==="") setErrors({...errors, name:"Campo obligatorio"})
-    }
+    const validate =  (form) => {
+
+        if (/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(form.name)) {
+            setErrors({ ...errors, name: "" });
+          } else {
+            setErrors({ ...errors, name: "Hay un error en el nombre" });
+          }
+          if (form.name === "") setErrors({ ...errors, name: "Campo obligatorio" });
+      
+          if (!form.minHeight || isNaN(form.minHeight) || !form.maxHeight || isNaN(form.maxHeight)) {
+            setErrors({ ...errors, minHeight: "Campo obligatorio y debe ser un número", maxHeight: "Campo obligatorio y debe ser un número" });
+          } else {
+            if (parseInt(form.minHeight) >= parseInt(form.maxHeight)) {
+              setErrors({ ...errors, minHeight: "La altura mínima debe ser inferior a la altura máxima", maxHeight: "La altura máxima debe ser superior a la altura mínima" });
+            } else {
+              setErrors({ ...errors, minHeight: "", maxHeight: "" });
+            }
+          }
+      
+          if (!form.minWeight || isNaN(form.minWeight) || !form.maxWeight || isNaN(form.maxWeight)) {
+            setErrors({ ...errors, minWeight: "Campo obligatorio y debe ser un número", maxWeight: "Campo obligatorio y debe ser un número" });
+          } else {
+            if (parseInt(form.minWeight) >= parseInt(form.maxWeight)) {
+              setErrors({ ...errors, minWeight: "El peso mínimo debe ser inferior al peso máximo", maxWeight: "El peso máximo debe ser superior al peso mínimo" });
+            } else {
+              setErrors({ ...errors, minWeight: "", maxWeight: "" });
+            }
+          }
+      
+          if (!form.life_span) {
+            setErrors({ ...errors, life_span: "Campo obligatorio" });
+          } else if (!/^(\d{1,2})-(\d{1,2})$/.test(form.life_span)) {
+            setErrors({ ...errors, life_span: "Formato de vida útil incorrecto. Debe ser 'número-número'" });
+          } else {
+            setErrors({ ...errors, life_span: "" });
+          }
+
+            
+          };
+          
 
     const submitHandler = (event) => {
         event.preventDefault()

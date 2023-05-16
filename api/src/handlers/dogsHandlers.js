@@ -1,9 +1,41 @@
 
-const {getApiInfo, getAllDogs, getDbInfo, getDogByID } = require("../controllers/dogsControllers");
+const {getApiInfo, getAllDogs, getDbInfo, getDogByID, getDogByName } = require("../controllers/dogsControllers");
 const { Dog, Temperament} = require("../db");
 
 
+// Retorna el dog por query
+
+// const getDogByNameHandler = async (req, res) => {
+//     try {
+//         const { name } = req.query;
+//         let dogName = await getDogByName(name);
+//         res.status(200).send(dogName);
+//     } catch (error) {
+//         res.status(500).json(error.message);
+//     }
+// }
+
+// const getDogByNameHandler = async (req,res) =>{
+//         try {
+//             const name = req.query.name
+//             let dogsTotal = await getAllDogs(req);
+//         if(name){
+//             let dogName = await dogsTotal.filter( el => el.name.toLowerCase().includes(name.toLowerCase()))
+//             dogName.length ?
+//             res.status(200).send(dogName) :
+//             res.status(404).send("No se encuentra la raza");
+//         } else{
+//             res.status(200).send(dogsTotal);
+//         }
+//         } catch (error) {
+//             res.status(500).json(error.message);
+//         }
+        
+//     }
+
+
 //Retorna todos los dogs si no se le pasa nada por query, sino busca la query 
+
 const getDogsHandler = async (req,res) =>{
     try {
         const name = req.query.name
@@ -23,26 +55,21 @@ const getDogsHandler = async (req,res) =>{
 }
 
 
+//Retorna todos los dogs
 
-// Retorna el dog por ID
-
-// const getDogHandler = async (req,res) => {
+// const getDogsHandler = async (req,res) =>{
 //     try {
-//         const id = req.params.id;
-//     const totalDogs = await getAllDogs();
-//     if(id){
-//         let dogId = await totalDogs.filter(el => el.id == id)
-//         dogId.length?
-//         res.status(200).json(dogId) :
-//         res.status(404).send("No encontre el Dog")
-//     }
+//         let dogsTotal = await getAllDogs();
+//         res.status(200).send(dogsTotal);
 //     } catch (error) {
 //         res.status(500).json(error.message);
 //     }
+    
 // }
 
 
 
+// Retorna el dog por ID
 
 const getDogHandler = async (req,res) => {
     const { id } = req.params;
@@ -97,8 +124,11 @@ const createDogHandler = async (req,res) => {
 
 
 
+
+
 module.exports = {
     getDogHandler,
     getDogsHandler,
-    createDogHandler
+    createDogHandler,
+    // getDogByNameHandler,
 }
