@@ -7,18 +7,19 @@ const CardsContainer = () => {
 
     return(
         <div className={style.container}>
-            {dogs.map(dog=>{
-                return <Card
-                id={dog.id}
-                image={dog.image}
-                name={dog.name}
-                temperament={dog.temperament}
-                weight={dog.weight}
-                height={dog.height}
+            {dogs.map(dog => (
+                <Card
+                    key={dog.id} // Agregar la clave única
+                    id={dog.id}
+                    image={dog.image}
+                    name={dog.name}
+                    temperament={dog.temperament}
+                    weight={dog.weight}
+                    height={dog.height}
                 />
-            })}
+            ))}
         </div>
-    )
-}
+    );
+};
 
 export default CardsContainer;
