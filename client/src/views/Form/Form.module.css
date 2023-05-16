@@ -39,7 +39,13 @@ form {
         font-family: cursive;
       }
   
-  button[type="submit"]:hover {
-    background-color: #39a82d;
-  }
+.inlineFields {
+  display: flex;
+}
+
+.inlineFields > * {
+  margin-right: 10px;
+}
+
+  
   

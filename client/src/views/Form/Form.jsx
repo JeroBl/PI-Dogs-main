@@ -6,8 +6,10 @@ const Form = () => {
 
     const [form, setForm] = useState({
         name: "",
-        height: "",
-        weight: "",
+        minHeight: "",
+        maxHeight: "",
+        minWeight: "",
+        maxWeight: "",
         life_span: "",
         temperaments: "",
         image: "",
@@ -15,8 +17,10 @@ const Form = () => {
 
     const [errors, setErrors] = useState({
         name: "",
-        height: "",
-        weight: "",
+        minHeight: "",
+        maxHeight: "",
+        minWeight: "",
+        maxWeight: "",
         life_span: "",
         temperaments: "",
         image: "",  
@@ -57,12 +61,18 @@ const Form = () => {
 
             <div>
                 <label>Altura: </label>
-                <input type="text" value={form.height} onChange={changeHandler} name="height" className="form-input"/>
+            <div className={style.inlineFields}>
+                <input type="text" value={form.minHeight} onChange={changeHandler} name="minHeight" className={style.formInput} />
+                <input type="text" value={form.maxHeight} onChange={changeHandler} name="maxHeight" className={style.formInput} />
+             </div>
             </div>
 
             <div>
                 <label>Peso: </label>
-                <input type="text" value={form.weight} onChange={changeHandler} name="weight" className="form-input"/>
+                <div className={style.inlineFields}>
+                <input type="text" value={form.minWeight} onChange={changeHandler} name="minWeight" className={style.formInput} />
+                <input type="text" value={form.maxWeight} onChange={changeHandler} name="maxWeight" className={style.formInput} />
+                </div>
             </div>
 
             <div>
