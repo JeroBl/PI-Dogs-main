@@ -1,25 +1,31 @@
 
 .card{
-    border: 1px solid black;
     width: fit-content;
     height: fit-content;
-    border-radius: 10px;
+    transition: background-color 1s;
 }
 
 .card img {
     width: 100%;
     height: 200px; 
     object-fit: cover;
+    border-radius: 10px;
 }
 
 /* .card p {
   margin: 0;
 } */
 
-.card .temperament {
+/* .card .temperament {
     display: flex;
      flex-direction: column;
     
-}
+} */
+
+.card:hover {
+    background-color:#0707075e;
+  }
+
+
     
     

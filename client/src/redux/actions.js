@@ -2,28 +2,8 @@ import axios from 'axios';
 
 export const GET_DOGS = "GET_DOGS";
 export const GET_DOG = "GET_DOG";
-
-// export const getDogs = (evento) => {
-//     return async function(dispatch){
-//         evento(true)
-//         axios.get(`http://localhost:3001/dogs/home`)
-//         .then(res => res.data)
-//         .then(data => {
-//             dispatch({type:GET_DOGS, payload:data})
-//             evento(false);
-//         })
-//     }
-// };
-////////////////////////////////////////////////
-// export function getDogs() {
-//     return async function (dispatch) {
-//         var dogs = await axios.get("http://localhost:3001/dogs");
-//         return dispatch({//necesario para despachar la accion
-//             type: GET_DOGS,
-//             payload: dogs.data
-//         });
-//     }
-// };
+export const GET_DOGNAME = "GET_DOGNAME";
+export const CLEANDETAIL = "CLEANDETAIL";
 
 
 
@@ -39,8 +19,24 @@ export const getDogs = () => {
 
 export const getDog = (id) => {
     return async function (dispatch) {
-        const allDogs = await axios.get(`http://localhost:3001/dogs/${id}`);
-        const dog = allDogs.data;
+        const IDDog = await axios.get(`http://localhost:3001/dogs/detail/${id}`);
+        const dog = IDDog.data;
             dispatch({type:GET_DOG, payload: dog})
     };
 };
+
+export const getDogByName = (name, evento) => {
+    return async function (dispatch) {
+        evento(true)
+        const dogByName = await axios.get(`http://localhost:3001/dogs?name=${name}`)
+        const dogName = dogByName.data;
+            dispatch({type:GET_DOGNAME, payload: dogName})
+            evento(false)
+    };
+};
+
+export const CleanDetail = () => {
+    return function(dispatch){
+        dispatch({type:CLEANDETAIL})
+    }   
+}

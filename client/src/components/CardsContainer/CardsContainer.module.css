@@ -1,9 +1,18 @@
 
-.container{
-    border: 1px solid black;
-    display: flex;
-    flex-direction: row;
-    border-radius: 15px;
-    flex-wrap: wrap;
-    gap: 1em;
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: auto;
+    height: 50vh;
+    width: 90%;
+    min-width: 300px; 
+    min-height: 50vh;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-around;
+    margin-bottom: 10%;
+    
+    transition: transform 0.5s;
+    transform-origin: center;
 }

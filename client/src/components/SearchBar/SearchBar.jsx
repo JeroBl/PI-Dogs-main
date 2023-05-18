@@ -28,16 +28,8 @@ const SearchBar = () => {
 
   return (
     <section className={style.mainContainer}>
-      <input
-        className={style.searchInput}
-        onChange={inputHandler}
-        onKeyDown={enterSearch}
-        type="text"
-        placeholder="Inserte el nombre"
-      />
-      <button className={style.searchButton} onClick={clickSearch}>
-        Buscar
-      </button>
+      <input className={style.searchInput} onChange={inputHandler} onKeyDown={enterSearch} type="text" placeholder="Inserte el nombre"/>
+      <button className={style.searchButton} onClick={clickSearch}>Buscar</button>
     </section>
   );
 };

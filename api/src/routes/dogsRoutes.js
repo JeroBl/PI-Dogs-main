@@ -7,13 +7,11 @@ const Sequelize = require ("sequelize");
 const { getDogHandler, getDogsHandler, createDogHandler, getDogByNameHandler } = require("../handlers/dogsHandlers.js");
 const { validate } = require("../middlewares/middlewares.js");
 
-router.get("/name", getDogsHandler); //busca por query
+// router.get("/name", getDogsHandler); //busca por query
 
 router.get("/", getDogsHandler);   //busca todos API y DB y si se le pasa una query filtra por query
 
-router.get("/:id", getDogHandler); //busca por ID
-
-
+router.get("/detail/:id", getDogHandler); //busca por ID
 
 router.post("/", validate, createDogHandler)  //crea por body
  

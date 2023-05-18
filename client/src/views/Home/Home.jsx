@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getDogs} from "../../redux/actions";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import style from "./Home.module.css"
 
 
 const Home = () => {
@@ -14,11 +15,11 @@ const Home = () => {
     },[dispatch])
 
     return(
-        <>
+        <div>
             <h1>Esta es la Home</h1>
             <SearchBar/>
-            <CardsContainer/>
-        </>
+            <CardsContainer className={style.cards}/>
+        </div>
     )
 }
 

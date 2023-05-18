@@ -26,8 +26,20 @@ const getApiInfo = async () => {
 
 //dogs de DB
 
+// const getDbInfo = async () => {
+//     return await Dog.findAll({
+//         include:{
+//             model: Temperament,
+//             attributes: ["name"],
+//             through: {
+//                 attributes:[],
+//             }
+//         }
+//     })
+// }
+
 const getDbInfo = async () => {
-    return await Dog.findAll({
+    let dogDB = await Dog.findAll({
         include:{
             model: Temperament,
             attributes: ["name"],
@@ -36,7 +48,24 @@ const getDbInfo = async () => {
             }
         }
     })
+
+
+const temperamentDB = dogDB.map((el) => {
+    return {
+        name: el.name,
+        image: el.image,
+        height: el.height,
+        weight: el.weight,
+        life_span: el.life_span,
+        id: el.id,
+        createdInDb: true,
+        temperament:el.temperament?.map(temperament => temperament.name),
+    };
+});
+return temperamentDB
 }
+
+  
 
 //dogs de DB + API
 
@@ -59,28 +88,6 @@ const getDogByID = async (id, source) => {
     return dog;
 }
 
-//dog por name
-
-const getDogByName = async (name) => {
-    const array = [];
-    const response = await axios.get(`${APIRAZA}?key=${APIKEY}&search=${name}`);
-    response.data.forEach((el) => {
-        const { name, image, height, weight, life_span, id, temperament } = el;
-        array.push({
-            name: name,
-            image: image,
-            height: height,
-            weight: weight,
-            life_span: life_span,
-            id: id,
-            temperament: temperament,
-        });
-    });
-    return array;
-};
-
-
-
 
 
 module.exports = {
@@ -88,7 +95,6 @@ module.exports = {
     getDbInfo,
     getAllDogs,
     getDogByID,
-    getDogByName,
 }
 
             
