@@ -4,6 +4,7 @@ export const GET_DOGS = "GET_DOGS";
 export const GET_DOG = "GET_DOG";
 export const GET_DOGNAME = "GET_DOGNAME";
 export const CLEANDETAIL = "CLEANDETAIL";
+export const CREATEDOG = "CREATEDOG";
 
 
 
@@ -25,15 +26,27 @@ export const getDog = (id) => {
     };
 };
 
-export const getDogByName = (name, evento) => {
+export const getDogName = (payload) => {
     return async function (dispatch) {
-        evento(true)
-        const dogByName = await axios.get(`http://localhost:3001/dogs?name=${name}`)
-        const dogName = dogByName.data;
-            dispatch({type:GET_DOGNAME, payload: dogName})
-            evento(false)
-    };
+        try {
+            var json = await axios.get(`http://localhost:3001/dogs?name=${payload}`)
+            if (json.data)
+            return dispatch ({type: GET_DOGNAME, payload: json.data})
+        } catch (error) {
+            return  alert(`No se encontro el perro`)
+        }
+    }
 };
+
+export const createDog = (payload) => {
+    return async function (dispatch) {
+        const create = await axios.post(`http://localhost:3001/dogs`, payload);
+        dispatch({ type: CREATEDOG });
+    return create.data;
+    }
+}
+
+
 
 export const CleanDetail = () => {
     return function(dispatch){

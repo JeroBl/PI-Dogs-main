@@ -50,7 +50,7 @@ const createDogHandler = async (req,res) => {
         weight,
         life_span,
         createdInDb,
-        temperaments  // aquí el cambio de nombre
+        temperaments  
     } = req.body;
 
     try {
@@ -65,11 +65,12 @@ const createDogHandler = async (req,res) => {
         })
     
         let temperamentDB = await Temperament.findAll({
-            where: { name: temperaments } // aquí también
+            where: { name: temperaments }
         })
     
-        dogCreated.addTemperament(temperamentDB)
-        res.status(200).send("Dog creado con exito")
+        await dogCreated.addTemperament(temperamentDB)
+        
+        res.status(201).json({ message: "Dog creado con éxito" });
     
     } catch (error) {
         res.status(400).json({error: error.message})

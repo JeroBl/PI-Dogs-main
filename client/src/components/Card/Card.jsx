@@ -3,21 +3,38 @@ import style from "./Card.module.css";
 
 const Card = (props) => {
   const history = useHistory();
+  const createdInDb = props.createdInDb;
 
   const handleClick = (id) => {
     history.push(`/dogs/detail/${id}`);
   };
 
-  return (
-    <div className={style.card} onClick={() => handleClick(props.id)}>
-      <p>Id: {props.id}</p>
-      <img className={style.cardImage} src={props.image?.url} alt={props.name} /> {/* Asegurarse de que props.image no sea nulo */}
-      <h3> {props.name} </h3>
-      <p className={style.temperament}>Temperamento: {props.temperament}</p>
-      <p>Peso: {props.weight?.metric ? `${props.weight.metric} kg` : 'N/A'}</p>
-      {/* <p>Height: {props.height?.metric ? `${props.height.metric} cm` : 'N/A'}</p> */}
-    </div>
-  );
-};
+  if (createdInDb) {
+    return (
+      <div className={style.card} onClick={() => handleClick(props.id)}>
+        <h3> {props.name} </h3>
+        <div>
+          <img className={style.cardImage} src={props.image} alt={props.name} />
+          <p>Peso: {props.weight}</p>
+          <p className={style.temperament}>Temperamento: {props.temperament}</p>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className={style.card} onClick={() => handleClick(props.id)}>
+        <h3> {props.name} </h3>
+        <div>
+          <img className={style.cardImage} src={props.image?.url} alt={props.name} />
+          <p>Peso: {props.weight?.metric ? `${props.weight.metric} kg` : 'N/A'}</p>
+          <p className={style.temperament}>Temperamento: {props.temperament}</p>
+        </div>
+      </div>
+    );
+  }
+  
+   
+}
 
 export default Card;
+

@@ -52,12 +52,12 @@ const getDbInfo = async () => {
 
 const temperamentDB = dogDB.map((el) => {
     return {
+        id: el.id,
         name: el.name,
         image: el.image,
         height: el.height,
         weight: el.weight,
         life_span: el.life_span,
-        id: el.id,
         createdInDb: true,
         temperament:el.temperament?.map(temperament => temperament.name),
     };

@@ -1,37 +1,26 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import style from "./SearchBar.module.css"; 
+import { useDispatch } from "react-redux";
+import { getDogName } from "../../redux/actions";
+import style from "../SearchBar/SearchBar.module.css";
 
-const SearchBar = () => {
-  const [inputValue, setInputValue] = useState("");
-  const history = useHistory();
+export default function SearchBar() {
+  const dispatch = useDispatch();
+  const [searchDog, setSearchDog] = useState("");
 
-  const enterSearch = (event) => {
-    if (event.key === "Enter") {
-      navigateToSearch();
-    }
-  };
+  const handleInput = (e) => {
+      e.preventDefault()
+      setSearchDog(e.target.value)
+  }
 
-  const clickSearch = () => {
-    navigateToSearch();
-  };
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      dispatch(getDogName(searchDog));
+  }
 
-  const navigateToSearch = () => {
-    const queryParams = { name: inputValue };
-    const search = new URLSearchParams(queryParams).toString();
-    history.push(`/name?${search}`);
-  };
-
-  const inputHandler = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  return (
-    <section className={style.mainContainer}>
-      <input className={style.searchInput} onChange={inputHandler} onKeyDown={enterSearch} type="text" placeholder="Inserte el nombre"/>
-      <button className={style.searchButton} onClick={clickSearch}>Buscar</button>
-    </section>
-  );
-};
-
-export default SearchBar;
+  return(
+      <div className={style.mainContainer}>
+          <input className={style.searchInput} type="text" onChange={handleInput} placeholder="Search..."/>
+          <button className={style.searchButton} type="submit" onClick={handleSubmit}> Buscar </button>
+      </div>
+  )
+}

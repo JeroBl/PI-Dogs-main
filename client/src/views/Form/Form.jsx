@@ -32,56 +32,43 @@ const Form = () => {
 
         validate({...form, [property]:value})
         setForm({...form, [property]:value})
-        
     }
 
     const validate =  (form) => {
-
-        if (/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(form.name)) {
-            setErrors({ ...errors, name: "" });
-          } else {
-            setErrors({ ...errors, name: "Hay un error en el nombre" });
-          }
-          if (form.name === "") setErrors({ ...errors, name: "Campo obligatorio" });
-      
-          if (!form.minHeight || isNaN(form.minHeight) || !form.maxHeight || isNaN(form.maxHeight)) {
-            setErrors({ ...errors, minHeight: "Campo obligatorio y debe ser un número", maxHeight: "Campo obligatorio y debe ser un número" });
-          } else {
-            if (parseInt(form.minHeight) >= parseInt(form.maxHeight)) {
-              setErrors({ ...errors, minHeight: "La altura mínima debe ser inferior a la altura máxima", maxHeight: "La altura máxima debe ser superior a la altura mínima" });
-            } else {
-              setErrors({ ...errors, minHeight: "", maxHeight: "" });
-            }
-          }
-      
-          if (!form.minWeight || isNaN(form.minWeight) || !form.maxWeight || isNaN(form.maxWeight)) {
-            setErrors({ ...errors, minWeight: "Campo obligatorio y debe ser un número", maxWeight: "Campo obligatorio y debe ser un número" });
-          } else {
-            if (parseInt(form.minWeight) >= parseInt(form.maxWeight)) {
-              setErrors({ ...errors, minWeight: "El peso mínimo debe ser inferior al peso máximo", maxWeight: "El peso máximo debe ser superior al peso mínimo" });
-            } else {
-              setErrors({ ...errors, minWeight: "", maxWeight: "" });
-            }
-          }
-      
-          if (!form.life_span) {
-            setErrors({ ...errors, life_span: "Campo obligatorio" });
-          } else if (!/^(\d{1,2})-(\d{1,2})$/.test(form.life_span)) {
-            setErrors({ ...errors, life_span: "Formato de vida útil incorrecto. Debe ser 'número-número'" });
-          } else {
-            setErrors({ ...errors, life_span: "" });
-          }
-
-            
-          };
-          
+  //FALTA VALIDAR
+    }
 
     const submitHandler = (event) => {
-        event.preventDefault()
-        axios.post("http://localhost:3001/dogs", form)
-        .then(res=>alert(res))
-        .catch(err=>alert(err))
-    }
+        event.preventDefault();
+
+        // Combina los valores de altura y peso en un solo campo
+        const height = `${form.minHeight}-${form.maxHeight}`;
+        const weight = `${form.minWeight}-${form.maxWeight}`;
+
+        // Crea una nueva versión del formulario con los campos combinados
+        const newForm = {
+            ...form,
+            height: height,
+            weight: weight
+        };
+
+        axios.post("http://localhost:3001/dogs", newForm)
+            .then(res => {
+                console.log(res.data);
+                // Restablecer los valores del formulario a su estado inicial
+                setForm({
+                    name: "",
+                    minHeight: "",
+                    maxHeight: "",
+                    minWeight: "",
+                    maxWeight: "",
+                    life_span: "",
+                    temperaments: "",
+                    image: "",
+                });
+            })
+            .catch(err => console.log(err));
+    };
 
     return(
         <form onSubmit={submitHandler} className="form-container">
@@ -93,17 +80,17 @@ const Form = () => {
 
             <div>
                 <label>Altura: </label>
-            <div className={style.inlineFields}>
-                <input type="text" value={form.minHeight} onChange={changeHandler} name="minHeight" className={style.formInput} />
-                <input type="text" value={form.maxHeight} onChange={changeHandler} name="maxHeight" className={style.formInput} />
-             </div>
+                <div className={style.inlineFields}>
+                    <input type="text" value={form.minHeight} onChange={changeHandler} name="minHeight" className={style.formInput} />
+                    <input type="text" value={form.maxHeight} onChange={changeHandler} name="maxHeight" className={style.formInput} />
+                </div>
             </div>
 
             <div>
                 <label>Peso: </label>
                 <div className={style.inlineFields}>
-                <input type="text" value={form.minWeight} onChange={changeHandler} name="minWeight" className={style.formInput} />
-                <input type="text" value={form.maxWeight} onChange={changeHandler} name="maxWeight" className={style.formInput} />
+                    <input type="text" value={form.minWeight} onChange={changeHandler} name="minWeight" className={style.formInput} />
+                    <input type="text" value={form.maxWeight} onChange={changeHandler} name="maxWeight" className={style.formInput} />
                 </div>
             </div>
 
@@ -121,10 +108,12 @@ const Form = () => {
                 <label>Imagen: </label>
                 <input type="text" value={form.image} onChange={changeHandler} name="image" className="form-input"/>
             </div>
+
             <button type="submit" className="form-button">CREAR</button>
-            
         </form>
     )
 }
 
 export default Form;
+
+
