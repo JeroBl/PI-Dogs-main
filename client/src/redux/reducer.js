@@ -1,4 +1,4 @@
-import { GET_DOGS, GET_DOG, GET_DOGNAME, CLEANDETAIL, CREATEDOG } from "./actions";
+import { GET_DOGS, GET_DOG, GET_DOGNAME, CLEANDETAIL, CREATEDOG, ORDER_ALFABETIC, ORDER_WEIGHT } from "./actions";
 
 const initialState = {
     dogs: [],
@@ -33,6 +33,46 @@ const rootReducer = (state = initialState, action)  =>{
             return{
                 ...state,
             }
+        case ORDER_ALFABETIC:
+                const sortedName = state.dogs.slice().sort((a, b) => {
+                  return action.payload === "A-Z"
+                    ? a.name.localeCompare(b.name)
+                    : b.name.localeCompare(a.name);
+                });
+              
+                return {
+                  ...state,
+                  dogs: sortedName,
+                };
+        case ORDER_WEIGHT:
+                    const sortedWeight = state.dogs.slice().sort((a, b) => {
+                      let weightA, weightB;
+                      
+                      if (a.createdInDb) {
+                        const [minA, maxA] = a.weight.split('-').map(Number);
+                        weightA = (minA + maxA) / 2;
+                      } else {
+                        const [minA, maxA] = a.weight.metric.split('-').map(Number);
+                        weightA = (minA + maxA) / 2;
+                      }
+                      
+                      if (b.createdInDb) {
+                        const [minB, maxB] = b.weight.split('-').map(Number);
+                        weightB = (minB + maxB) / 2;
+                      } else {
+                        const [minB, maxB] = b.weight.metric.split('-').map(Number);
+                        weightB = (minB + maxB) / 2;
+                      }
+                      
+                      return action.payload === 'asc' ? weightA - weightB : weightB - weightA;
+                    });
+                    
+                    return {
+                      ...state,
+                      dogs: sortedWeight,
+                  };
+        
+                  
         default:
             return {...state};
     }

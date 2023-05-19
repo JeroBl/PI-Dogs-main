@@ -81,8 +81,8 @@ const Form = () => {
             <div>
                 <label>Altura: </label>
                 <div className={style.inlineFields}>
-                    <input type="text" value={form.minHeight} onChange={changeHandler} name="minHeight" className={style.formInput} />
-                    <input type="text" value={form.maxHeight} onChange={changeHandler} name="maxHeight" className={style.formInput} />
+                    <input type="text" value={form.minHeight} onChange={changeHandler} name="minHeight" className={style.formInput}  />
+                    <input type="text" value={form.maxHeight} onChange={changeHandler} name="maxHeight" className={style.formInput}  />
                 </div>
             </div>
 
@@ -96,7 +96,7 @@ const Form = () => {
 
             <div>
                 <label>Años de vida: </label>
-                <input type="text" value={form.life_span} onChange={changeHandler} name="life_span" className="form-input"/>
+                <input type="text" value={form.life_span} onChange={changeHandler} name="life_span" className="form-input" placeholder="valores dividos por (-)"/>
             </div>
 
             <div>
