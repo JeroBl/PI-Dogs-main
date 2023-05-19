@@ -3,3 +3,25 @@
     flex-wrap: wrap;
     gap:5%;
 } */
+
+.filtersContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .orderContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .filterContainer {
+    display: flex;
+    align-items: center
+  }
+
+  /* .resetFiltersContainer {
+    margin-right: 50px;
+  } */
+  

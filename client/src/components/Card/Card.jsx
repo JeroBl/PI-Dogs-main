@@ -12,9 +12,9 @@ const Card = (props) => {
   if (createdInDb) {
     return (
       <div className={style.card} onClick={() => handleClick(props.id)}>
-        <h3> {props.name} </h3>
         <div>
           <img className={style.cardImage} src={props.image} alt={props.name} />
+        <h3> {props.name} </h3>
           <p>Peso: {props.weight}</p>
           <p className={style.temperament}>Temperamento: {props.temperament}</p>
         </div>
@@ -23,9 +23,9 @@ const Card = (props) => {
   } else {
     return (
       <div className={style.card} onClick={() => handleClick(props.id)}>
-        <h3> {props.name} </h3>
         <div>
           <img className={style.cardImage} src={props.image?.url} alt={props.name} />
+        <h3> {props.name} </h3>
           <p>Peso: {props.weight?.metric ? `${props.weight.metric} kg` : 'N/A'}</p>
           <p className={style.temperament}>Temperamento: {props.temperament}</p>
         </div>

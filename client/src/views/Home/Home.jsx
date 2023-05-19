@@ -40,23 +40,34 @@ const Home = () => {
     <div>
       <h1>Esta es la Home</h1>
       <SearchBar />
-      <button onClick={handleOrderButtonClick}>
-        Ordenar alfabeticamente: {orderDirection === "A-Z" ? "Z-A" : "A-Z"}
-      </button>
+      <div className={style.filtersContainer}>
+        <div className={style.orderContainer}>
+          <h4>Ordenar: </h4>
+          <button onClick={handleOrderButtonClick}>
+            Nombre: {orderDirection === "A-Z" ? "Z-A" : "A-Z"}
+          </button>
 
-      <button onClick={handleOrderWeightButtonClick}>
-        Ordenar por Peso: {orderWeightDirection === "asc" ? "Descendente" : "Ascendente"}
-      </button>
+          <button onClick={handleOrderWeightButtonClick}>
+            Peso: {orderWeightDirection === "asc" ? "Descendente" : "Ascendente"}
+          </button>
+        </div>
 
-      <button onClick={() => handleFilterOrigin("DB")}>
-        Mostrar perros de: DB
-      </button>
+        <div className={style.filterContainer}>
+          <h4>Filtrar: </h4>
+
+          <button onClick={() => handleFilterOrigin("DB")}>
+            Perros de: DB
+          </button>
+
+          <button onClick={() => handleFilterOrigin("API")}>
+            Perros de: API
+          </button>
+
+          <button onClick={handleResetFilters}>Eliminar filtros</button>
+        </div>
+      </div>
+
       
-      <button onClick={() => handleFilterOrigin("API")}>
-        Mostrar perros de: API
-      </button>
-
-      <button onClick={handleResetFilters}>Eliminar filtros</button>
 
       <CardsContainer className={style.cards} />
     </div>
