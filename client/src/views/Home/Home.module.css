@@ -5,21 +5,44 @@
 } */
 
 .filtersContainer {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.orderContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.paginationContainer button {
+  margin-left: 5px;
+}
+
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+
+
+
+
   
-  .orderContainer {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .filterContainer {
-    display: flex;
-    align-items: center
-  }
 
   /* .resetFiltersContainer {
     margin-right: 50px;
