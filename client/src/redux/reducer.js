@@ -1,7 +1,8 @@
-import { GET_DOGS, GET_DOG, GET_DOGNAME, CLEANDETAIL, CREATEDOG, ORDER_ALFABETIC, ORDER_WEIGHT } from "./actions";
+import { GET_DOGS, GET_DOG, GET_DOGNAME, CLEANDETAIL, CREATEDOG, ORDER_ALFABETIC, ORDER_WEIGHT, FILTER_BY_ORIGIN, RESET_FILTERS } from "./actions";
 
 const initialState = {
     dogs: [],
+    allDogs: [],
     dog: null,
     dogName: null,
 };
@@ -12,7 +13,8 @@ const rootReducer = (state = initialState, action)  =>{
         case GET_DOGS:
             return {
                 ...state,
-                dogs: action.payload 
+                dogs: action.payload,
+                allDogs: action.payload
             };
         case GET_DOG:
             return {
@@ -71,7 +73,24 @@ const rootReducer = (state = initialState, action)  =>{
                       ...state,
                       dogs: sortedWeight,
                   };
-        
+        case FILTER_BY_ORIGIN:
+                    const filteredDogs = state.allDogs.filter((dog) => {
+                      if (action.payload === "DB") {
+                        return dog.createdInDb;
+                      } else if (action.payload === "API") {
+                        return !dog.createdInDb;
+                      }
+                      return true;
+                    });
+                    return {
+                      ...state,
+                      dogs: filteredDogs,
+                    };
+          case "RESET_FILTERS":
+                      return {
+                        ...state,
+                        dogs: state.allDogs,
+                      };
                   
         default:
             return {...state};

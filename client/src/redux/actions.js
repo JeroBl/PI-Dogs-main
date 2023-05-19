@@ -8,6 +8,7 @@ export const CREATEDOG = "CREATEDOG";
 export const ORDER_ALFABETIC = "ORDER_ALFABETIC";
 export const ORDER_WEIGHT = "ORDER_WEIGHT";
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
+export const RESET_FILTERS = "RESET_FILTERS";
 
 
 export const getDogs = () => {
@@ -60,7 +61,12 @@ export const orderWeight = (payload) => {
     }
 }
 
-
+export const filterByOrigin = (origin) => {
+    return {
+      type: FILTER_BY_ORIGIN,
+      payload: origin,
+    };
+  };
 
 export const CleanDetail = () => {
     return function(dispatch){
@@ -68,9 +74,10 @@ export const CleanDetail = () => {
     }   
 };
 
-export const filterByOrigin = (origin) => {
+export const resetFilters = () => {
     return {
-      type: FILTER_BY_ORIGIN,
-      payload: origin,
+      type: "RESET_FILTERS",
     };
   };
+   
+
