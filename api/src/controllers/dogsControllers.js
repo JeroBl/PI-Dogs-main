@@ -85,14 +85,26 @@ const getAllDogs = async () => {
 
 //dog por ID
 
-const getDogByID = async (id, source) => {
-    const dog = 
-        source === "api"
-            ? (await axios.get(`${API}/${id}?key=${APIKEY}`)).data
-            : await Dog.findByPk(id);
 
+const getDogByID = async (id, source) => {
+    let dog;
+    if (source === "api") {
+      dog = (await axios.get(`${API}/${id}?key=${APIKEY}`)).data;
+    } else {
+      dog = await Dog.findByPk(id, {
+        include: {
+          model: Temperament,
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
+        },
+      });
+    }
+  
     return dog;
-}
+  };
+  
 
 
 

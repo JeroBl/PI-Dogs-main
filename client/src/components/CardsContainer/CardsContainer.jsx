@@ -10,18 +10,35 @@ const CardsContainer = ({ currentPage, dogsPerPage }) => {
   
   return(
     <div className={style.container}>
-      {currentDogs.map(dog => (
-        <Card
-          key={dog.id}
-          id={dog.id}
-          image={dog.image}
-          name={dog.name}
-          temperament={dog.temperament}
-          weight={dog.weight}
-          height={dog.height}
-          createdInDb={dog.createdInDb}
-        />
-      ))}
+      {currentDogs.map(dog => {
+        if (dog.createdInDb) {
+          return (
+            <Card
+              key={dog.id}
+              id={dog.id}
+              image={dog.image}
+              name={dog.name}
+              temperaments={dog.temperaments}
+              weight={dog.weight}
+              height={dog.height}
+              createdInDb={dog.createdInDb}
+            />
+          );
+        } else {
+          return (
+            <Card
+              key={dog.id}
+              id={dog.id}
+              image={dog.image}
+              name={dog.name}
+              temperament={dog.temperament}
+              weight={dog.weight}
+              height={dog.height}
+              createdInDb={dog.createdInDb}
+            />
+          );
+        }
+      })}
     </div>
   );
 };

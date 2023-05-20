@@ -20,7 +20,6 @@ const Detail = (props) => {
   if (!dog) {
     return <div>Cargando...</div>;
   }
-  // console.log(dog);
 
   const createdInDb = dog.createdInDb;
 
@@ -35,30 +34,36 @@ const Detail = (props) => {
   const imageURL = `https://cdn2.thedogapi.com/images/${dog.reference_image_id}.jpg`;
 
   if (createdInDb) {
-    return(
+    return (
       <div>
-      <h1>Nombre: {dog.name}</h1>
-      <img className={style.image} src={dog.image} alt="Dog" />
-      <h3>Temperamentos: {dog.temperament}</h3>
-      <h3>Esperanza de vida: {dog.life_span} años</h3>
-      <h3>Peso: {dog.weight} kg</h3>
-      <h3>Altura: {dog.height} cm</h3>
-      <h4>ID: {dog.id}</h4>
-    </div>
-    )
-  }else{
-  return (
-    <div>
-      <h1>Nombre: {dog.name}</h1>
-      <img className={style.image} src={imageURL} alt="Dog" />
-      <h3>Temperamentos: {dog.temperament}</h3>
-      <h3>Esperanza de vida: {lifeSpan}</h3>
-      <h3>Peso: {minWeightKg} - {maxWeightKg} kg</h3>
-      <h3>Altura: {minHeightCm} - {maxHeightCm} cm</h3>
-      <h4>ID: {dog.id}</h4>
-    </div>
-  );
+        <h1>Nombre: {dog.name}</h1>
+        <img className={style.image} src={dog.image} alt="Dog" />
+        {dog.temperaments && dog.temperaments.length > 0 && (
+          <h3>Temperamentos: {dog.temperaments.map((temperaments) => temperaments.name).join(", ")}</h3>
+        )}
+        <h3>Esperanza de vida: {dog.life_span} años</h3>
+        <h3>Peso: {dog.weight} kg</h3>
+        <h3>Altura: {dog.height} cm</h3>
+        <h4>ID: {dog.id}</h4>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>Nombre: {dog.name}</h1>
+        <img className={style.image} src={imageURL} alt="Dog" />
+        {dog.temperament && (
+          <h3>Temperamentos: {dog.temperament}</h3>
+        )}
+        <h3>Esperanza de vida: {lifeSpan}</h3>
+        <h3>Peso: {minWeightKg} - {maxWeightKg} kg</h3>
+        <h3>Altura: {minHeightCm} - {maxHeightCm} cm</h3>
+        <h4>ID: {dog.id}</h4>
+      </div>
+    );
   }
 };
 
 export default Detail;
+
+

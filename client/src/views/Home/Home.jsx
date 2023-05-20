@@ -7,6 +7,8 @@ import {
   orderWeight,
   filterByOrigin,
   resetFilters,
+  getTemperaments,
+  filterByTemperament, // Agregamos la acción de filtrar por temperamento
 } from "../../redux/actions";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import styles from "./Home.module.css";
@@ -21,9 +23,12 @@ const Home = () => {
   const [orderWeightDirection, setOrderWeightDirection] = useState("asc");
   const [filterOrigin, setFilterOrigin] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const temperaments = useSelector((state) => state.temperaments);
+  const [selectedTemperament, setSelectedTemperament] = useState(""); // Agregamos el estado del temperamento seleccionado
 
   useEffect(() => {
     dispatch(getDogs());
+    dispatch(getTemperaments());
   }, [dispatch]);
 
   const handleOrderButtonClick = () => {
@@ -55,56 +60,69 @@ const Home = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  const handleTemperamentChange = (event) => {
+    const selectedTemperament = event.target.value;
+    setSelectedTemperament(selectedTemperament);
+
+    // Filtrar perros por temperamento seleccionado
+    dispatch(filterByTemperament(selectedTemperament));
+  };
+
   return (
     <div>
       <h1>Esta es la Home</h1>
       <SearchBar />
       <div className={styles.filtersContainer}>
-  <div className={styles.orderContainer}>
-    <h4>Ordenar: </h4>
-    <button onClick={handleOrderButtonClick}>
-      Nombre: {orderDirection === "A-Z" ? "Z-A" : "A-Z"}
-    </button>
+        <div className={styles.orderContainer}>
+          <h4>Ordenar: </h4>
+          <button onClick={handleOrderButtonClick}>
+            Nombre: {orderDirection === "A-Z" ? "Z-A" : "A-Z"}
+          </button>
 
-    <button onClick={handleOrderWeightButtonClick}>
-      Peso: {orderWeightDirection === "asc" ? "Descendente" : "Ascendente"}
-    </button>
-  </div>
+          <button onClick={handleOrderWeightButtonClick}>
+            Peso: {orderWeightDirection === "asc" ? "Descendente" : "Ascendente"}
+          </button>
+        </div>
 
-  <div className={styles.filterContainer}>
-    <h4>Filtrar: </h4>
+        <div className={styles.filterContainer}>
+          <h4>Filtrar: </h4>
+          <button onClick={() => handleFilterOrigin("DB")}>Perros de: DB</button>
+          <button onClick={() => handleFilterOrigin("API")}>Perros de: API</button>
+          <button onClick={handleResetFilters}>Eliminar filtros</button>
+        </div>
+      </div>
 
-    <button onClick={() => handleFilterOrigin("DB")}>
-      Perros de: DB
-    </button>
+      <div>
+        <label>Temperamentos: </label>
+        <select value={selectedTemperament} onChange={handleTemperamentChange}>
+          <option value="">Todos los temperamentos</option>
+          {temperaments.map((temperament) => (
+            <option key={temperament.id} value={temperament.name}>
+              {temperament.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    <button onClick={() => handleFilterOrigin("API")}>
-      Perros de: API
-    </button>
+      <div className={styles.paginationWrapper}>
+        <div className={styles.paginationContainer}>
+          <button
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+            className={styles.paginationButton}
+          >
+            Anterior
+          </button>
 
-    <button onClick={handleResetFilters}>Eliminar filtros</button>
-  </div>
-</div>
-
-<div className={styles.paginationWrapper}>
-  <div className={styles.paginationContainer}>
-    <button
-      onClick={goToPreviousPage}
-      disabled={currentPage === 1}
-      className={styles.paginationButton}
-    >
-      Anterior
-    </button>
-
-    <button
-      onClick={goToNextPage}
-      disabled={currentPage === totalPages}
-      className={styles.paginationButton}
-    >
-      Siguiente
-    </button>
-  </div>
-</div>
+          <button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            className={styles.paginationButton}
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
 
       <CardsContainer
         className={styles.cards}

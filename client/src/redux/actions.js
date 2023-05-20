@@ -3,21 +3,49 @@ import axios from 'axios';
 export const GET_DOGS = "GET_DOGS";
 export const GET_DOG = "GET_DOG";
 export const GET_DOGNAME = "GET_DOGNAME";
+export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const CLEANDETAIL = "CLEANDETAIL";
 export const CREATEDOG = "CREATEDOG";
 export const ORDER_ALFABETIC = "ORDER_ALFABETIC";
 export const ORDER_WEIGHT = "ORDER_WEIGHT";
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
+export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";   
 export const RESET_FILTERS = "RESET_FILTERS";
 
 
 export const getDogs = () => {
-    return async function(dispatch){
-        const allDogs = await axios.get(`http://localhost:3001/dogs`);
-        const dogs = allDogs.data;
-            dispatch({type:GET_DOGS, payload: dogs})
-        };
+    return async (dispatch) => {
+      try {
+        const response = await axios.get("http://localhost:3001/dogs");
+        const dogs = response.data;
+  
+        dispatch({
+          type: GET_DOGS,
+          payload: dogs,
+        });
+  
+        dispatch(getTemperaments());
+      } catch (error) {
+        console.error(error);
+      }
     };
+  };
+  
+  export const getTemperaments = () => {
+    return async (dispatch) => {
+      try {
+        const response = await axios.get("http://localhost:3001/temperaments");
+        const temperaments = response.data;
+  
+        dispatch({
+          type: GET_TEMPERAMENTS,
+          payload: temperaments,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  };
 
 
 
@@ -28,6 +56,8 @@ export const getDog = (id) => {
             dispatch({type:GET_DOG, payload: dog})
     };
 };
+
+
 
 export const getDogName = (payload) => {
     return async function (dispatch) {
@@ -68,11 +98,19 @@ export const filterByOrigin = (origin) => {
     };
   };
 
+export const filterByTemperament = (payload) => {
+    return {
+        type: FILTER_BY_TEMPERAMENT,
+        payload: payload,
+    }
+}
+
 export const CleanDetail = () => {
     return function(dispatch){
         dispatch({ type: CLEANDETAIL })
     }   
 };
+
 
 export const resetFilters = () => {
     return {
@@ -80,4 +118,3 @@ export const resetFilters = () => {
     };
   };
    
-
