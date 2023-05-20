@@ -1,3 +1,4 @@
+
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ import {
   filterByOrigin,
   resetFilters,
   getTemperaments,
-  filterByTemperament, // Agregamos la acción de filtrar por temperamento
+  filterByTemperament,
 } from "../../redux/actions";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import styles from "./Home.module.css";
@@ -24,7 +25,8 @@ const Home = () => {
   const [filterOrigin, setFilterOrigin] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const temperaments = useSelector((state) => state.temperaments);
-  const [selectedTemperament, setSelectedTemperament] = useState(""); // Agregamos el estado del temperamento seleccionado
+  const [selectedTemperament, setSelectedTemperament] = useState("");
+  const [firstPage, setFirstPage] = useState(1); // Nuevo estado para la primera página
 
   useEffect(() => {
     dispatch(getDogs());
@@ -46,10 +48,12 @@ const Home = () => {
   const handleFilterOrigin = (origin) => {
     setFilterOrigin(origin);
     dispatch(filterByOrigin(origin));
+    setCurrentPage(1); //para que cuando filtro por DB o API renderice en la primera pagina
   };
 
   const handleResetFilters = () => {
     dispatch(resetFilters());
+    setCurrentPage(1);
   };
 
   const goToPreviousPage = () => {
@@ -60,17 +64,19 @@ const Home = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  const goToFirstPage = () => {
+    setCurrentPage(firstPage);
+  };
+
   const handleTemperamentChange = (event) => {
     const selectedTemperament = event.target.value;
     setSelectedTemperament(selectedTemperament);
-
-    // Filtrar perros por temperamento seleccionado
     dispatch(filterByTemperament(selectedTemperament));
   };
 
   return (
     <div>
-      <h1>Esta es la Home</h1>
+    
       <SearchBar />
       <div className={styles.filtersContainer}>
         <div className={styles.orderContainer}>
@@ -88,7 +94,7 @@ const Home = () => {
           <h4>Filtrar: </h4>
           <button onClick={() => handleFilterOrigin("DB")}>Perros de: DB</button>
           <button onClick={() => handleFilterOrigin("API")}>Perros de: API</button>
-          <button onClick={handleResetFilters}>Eliminar filtros</button>
+          <button onClick={handleResetFilters} className={`${styles.deleteFiltersButton} ${styles.button}`}>Eliminar filtros</button>
         </div>
       </div>
 
@@ -107,8 +113,16 @@ const Home = () => {
       <div className={styles.paginationWrapper}>
         <div className={styles.paginationContainer}>
           <button
+            onClick={goToFirstPage}
+            disabled={currentPage === firstPage}
+            className={styles.paginationButton}
+          >
+            Primera
+          </button>
+
+          <button
             onClick={goToPreviousPage}
-            disabled={currentPage === 1}
+            disabled={currentPage === firstPage}
             className={styles.paginationButton}
           >
             Anterior
@@ -134,4 +148,5 @@ const Home = () => {
 };
 
 export default Home;
+
 

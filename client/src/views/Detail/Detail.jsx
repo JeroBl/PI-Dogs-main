@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDog, CleanDetail } from "../../redux/actions";
 import style from "./Detail.module.css";
@@ -6,10 +6,18 @@ import style from "./Detail.module.css";
 const Detail = (props) => {
   const dispatch = useDispatch();
   const dog = useSelector((state) => state.dog);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const id = props.match.params.id;
-    dispatch(getDog(id));
+    setLoading(true);
+    dispatch(getDog(id))
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
 
     // Limpia los detalles cuando el componente se desmonta
     return () => {
@@ -17,8 +25,12 @@ const Detail = (props) => {
     };
   }, [dispatch, props.match.params.id]);
 
+  if (loading) {
+    return <div>Cargando...</div>; // Mostrar mensaje de carga mientras se obtiene el perro
+  }
+
   if (!dog) {
-    return <div>Cargando...</div>;
+    return <div>No se encontró el perro.</div>; // Mostrar mensaje de error si no se encuentra el perro
   }
 
   const createdInDb = dog.createdInDb;
@@ -65,5 +77,3 @@ const Detail = (props) => {
 };
 
 export default Detail;
-
-

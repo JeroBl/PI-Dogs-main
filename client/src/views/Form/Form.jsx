@@ -150,7 +150,7 @@ const Form = () => {
   };
 
   return (
-    <form onSubmit={submitHandler} className="form-container">
+    <form onSubmit={submitHandler} className={`form-container ${style.form}`}>
       <div className="form-field">
         <label>Nombre: </label>
         <input type="text" value={form.name} onChange={changeHandler} onBlur={blurHandler} name="name" className="form-input" />
@@ -193,7 +193,7 @@ const Form = () => {
         <input type="text" value={form.image} onChange={changeHandler} onBlur={blurHandler} name="image" className="form-input" />
       </div>
 
-      <button type="submit" className="form-button">CREAR</button>
+      <button type="submit" className="form-button">Crear</button>
     </form>
   );
 };

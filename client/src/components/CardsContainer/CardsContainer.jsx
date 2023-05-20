@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Card from "../Card/Card";
-import style from "./CardsContainer.module.css"
+import styles from "./CardsContainer.module.css"
 
 const CardsContainer = ({ currentPage, dogsPerPage }) => {
   const dogs = useSelector(state => state.dogs);
@@ -8,8 +8,8 @@ const CardsContainer = ({ currentPage, dogsPerPage }) => {
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
   
-  return(
-    <div className={style.container}>
+  return (
+    <div className={styles.container}>
       {currentDogs.map(dog => {
         if (dog.createdInDb) {
           return (
@@ -44,4 +44,3 @@ const CardsContainer = ({ currentPage, dogsPerPage }) => {
 };
 
 export default CardsContainer;
-

@@ -30,7 +30,7 @@
 }
 
 .button {
-    background-color: #414e4d;
+    background-color: #333;
     color: #fff;
     font-size: 1.5rem;
     padding: 1rem 2.5rem;
@@ -38,7 +38,7 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    box-shadow: 2px 2px 4px #414e4d;
+    box-shadow: 2px 2px 4px #333;
     transition: transform 0.2s ease-in-out;
     font-family: cursive;
   }
@@ -48,7 +48,7 @@
     margin-top: 4%;
     backdrop-filter: blur(3px) saturate(300%);
     font-family: cursive;
-    color: #414e4d;
+    color: #333;
     font-weight:900;
     font-size: 4rem;
 }

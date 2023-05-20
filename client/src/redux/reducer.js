@@ -1,4 +1,3 @@
-import { combineReducers } from "redux";
 import {
   GET_DOGS,
   GET_DOG,

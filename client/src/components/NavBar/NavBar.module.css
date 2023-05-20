@@ -1,8 +1,25 @@
-.mainContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border-radius: 15px;
-    border: 1px solid black;
-   
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: none;
+  background-color: #333;
+  padding: 10px;
 }
+
+.mainContainer a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
+}
+
+.mainContainer a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+  
+  

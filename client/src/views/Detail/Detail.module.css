@@ -1,6 +1,6 @@
 .image{
-    max-width: 700px; /* Máximo ancho de la imagen */
-  max-height: 700px; /* Máxima altura de la imagen */
-  width: auto; /* Ancho automático para mantener la proporción */
-  height: auto; /* Altura automática para mantener la proporción */
+    max-width: 700px;
+  max-height: 700px;
+  width: auto; 
+  height: auto; 
 }
