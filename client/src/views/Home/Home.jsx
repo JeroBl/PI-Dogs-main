@@ -1,6 +1,4 @@
-
-import CardsContainer from "../../components/CardsContainer/CardsContainer";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDogs,
@@ -12,6 +10,7 @@ import {
   filterByTemperament,
 } from "../../redux/actions";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import styles from "./Home.module.css";
 
 const Home = () => {
@@ -20,16 +19,20 @@ const Home = () => {
   const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const [orderDirection, setOrderDirection] = useState("A-Z");
   const [orderWeightDirection, setOrderWeightDirection] = useState("asc");
   const [filterOrigin, setFilterOrigin] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const temperaments = useSelector((state) => state.temperaments);
   const [selectedTemperament, setSelectedTemperament] = useState("");
-  const [firstPage, setFirstPage] = useState(1); // Nuevo estado para la primera página
+  const [firstPage, setFirstPage] = useState(1); 
 
   useEffect(() => {
-    dispatch(getDogs());
+    dispatch(getDogs())
+      .then(() => setLoading(false)) 
+      .catch(() => setLoading(false)); 
+
     dispatch(getTemperaments());
   }, [dispatch]);
 
@@ -77,8 +80,9 @@ const Home = () => {
 
   return (
     <div>
-    
       <SearchBar />
+      
+
       <div className={styles.filtersContainer}>
         <div className={styles.orderContainer}>
           <h4>Ordenar: </h4>
@@ -117,7 +121,7 @@ const Home = () => {
             onClick={goToFirstPage}
             disabled={currentPage === firstPage}
             className={styles.paginationButton}
-          >
+            >
             Primera
           </button>
 
@@ -125,7 +129,7 @@ const Home = () => {
             onClick={goToPreviousPage}
             disabled={currentPage === firstPage}
             className={styles.paginationButton}
-          >
+            >
             Anterior
           </button>
 
@@ -133,12 +137,13 @@ const Home = () => {
             onClick={goToNextPage}
             disabled={currentPage === totalPages}
             className={styles.paginationButton}
-          >
+            >
             Siguiente
           </button>
         </div>
       </div>
 
+            {loading && <h3>Loading...</h3>}
       <CardsContainer
         className={styles.cards}
         currentPage={currentPage}
@@ -149,5 +154,10 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
 
 

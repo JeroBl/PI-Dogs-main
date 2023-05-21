@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import style from "./Form.module.css"
+import style from "./Form.module.css";
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -131,20 +131,35 @@ const Form = () => {
       weight: weight
     };
 
-    axios.post("http://localhost:3001/dogs", newForm)
+    axios
+      .get("http://localhost:3001/dogs")
       .then(res => {
-        console.log(res.data);
-        setForm({
-          name: "",
-          minHeight: "",
-          maxHeight: "",
-          minWeight: "",
-          maxWeight: "",
-          life_span: "",
-          temperaments: [],
-          image: "",
-        });
-        alert("El perro se creó exitosamente.");
+        const existingDogs = res.data;
+        const isDuplicate = existingDogs.some(
+          dog => dog.name.toLowerCase() === newForm.name.toLowerCase()
+        );
+
+        if (isDuplicate) {
+          alert("El perro ya existe. No se puede crear otro con el mismo nombre.");
+        } else {
+          axios
+            .post("http://localhost:3001/dogs", newForm)
+            .then(res => {
+              console.log(res.data);
+              setForm({
+                name: "",
+                minHeight: "",
+                maxHeight: "",
+                minWeight: "",
+                maxWeight: "",
+                life_span: "",
+                temperaments: [],
+                image: "",
+              });
+              alert("El perro se creó exitosamente.");
+            })
+            .catch(err => console.log(err));
+        }
       })
       .catch(err => console.log(err));
   };

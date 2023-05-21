@@ -46,6 +46,10 @@
   background-color: #eaeaea;
 }
 
+.orderContainer {
+  margin-left: 20px;
+}
+
 .paginationWrapper {
   display: flex;
   justify-content: center;

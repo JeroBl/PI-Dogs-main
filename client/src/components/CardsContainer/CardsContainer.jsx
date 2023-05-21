@@ -44,3 +44,6 @@ const CardsContainer = ({ currentPage, dogsPerPage }) => {
 };
 
 export default CardsContainer;
+
+
+

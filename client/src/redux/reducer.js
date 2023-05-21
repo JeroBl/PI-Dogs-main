@@ -104,25 +104,25 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: filteredDogs,
       };
-      case FILTER_BY_TEMPERAMENT:
-  const selectedTemperament = action.payload;
-  if (selectedTemperament === "") {
-    return {
+    case FILTER_BY_TEMPERAMENT:
+      const selectedTemperament = action.payload;
+      if (selectedTemperament === "") {
+      return {
       ...state,
       dogs: state.allDogs,
       temperamentFilter: null,
-    };
-  } else {
-    const filteredByTemperament = state.allDogs.filter((dog) =>
+      };
+      } else {
+      const filteredByTemperament = state.allDogs.filter((dog) =>
       (dog.temperament && dog.temperament.includes(selectedTemperament)) ||
       (dog.temperaments && dog.temperaments.some((temp) => temp.name === selectedTemperament))
-    );
-    return {
+      );
+      return {
       ...state,
       dogs: filteredByTemperament,
       temperamentFilter: selectedTemperament,
-    };
-  }
+      };
+      }
 
       
     case RESET_FILTERS:
@@ -137,3 +137,5 @@ const rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
+
+
