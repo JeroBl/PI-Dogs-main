@@ -54,6 +54,7 @@ const Home = () => {
   const handleResetFilters = () => {
     dispatch(resetFilters());
     setCurrentPage(1);
+    setSelectedTemperament("");
   };
 
   const goToPreviousPage = () => {

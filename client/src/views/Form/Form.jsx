@@ -178,9 +178,9 @@ const Form = () => {
         <input type="text" value={form.life_span} onChange={changeHandler} onBlur={blurHandler} name="life_span" className="form-input" placeholder="valores dividos por (-)" />
       </div>
 
-      <div>
-        <label>Temperamentos: </label>
-        <select multiple value={form.temperaments} onChange={changeHandler} onBlur={blurHandler} name="temperaments" className="form-input">
+      <div className={style.temperamentContainer}>
+        <label >Temperamentos: </label>
+        <select multiple value={form.temperaments} onChange={changeHandler} onBlur={blurHandler} name="temperaments" className={`${style.temperamentList} form-input`}>
           {temperamentList.map((temperament, index) => (
             <option key={index} value={temperament.name}>{temperament.name}</option>
           ))}

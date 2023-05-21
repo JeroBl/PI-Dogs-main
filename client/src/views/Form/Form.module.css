@@ -42,6 +42,17 @@
   margin-right: 10px;
 }
 
+.temperamentContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.temperamentList {
+  margin-right: 20px;
+
+
+}
 
 
 
