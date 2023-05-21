@@ -26,11 +26,11 @@ const Detail = (props) => {
   }, [dispatch, props.match.params.id]);
 
   if (loading) {
-    return <div>Cargando...</div>; // Mostrar mensaje de carga mientras se obtiene el perro
+    return <div>Cargando...</div>; 
   }
 
   if (!dog) {
-    return <div>No se encontró el perro.</div>; // Mostrar mensaje de error si no se encuentra el perro
+    return <div>No se encontró el perro.</div>; 
   }
 
   const createdInDb = dog.createdInDb;
