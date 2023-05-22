@@ -20,12 +20,6 @@ const getAllTemperaments = async (req,res) => {
 
 }
 
-// const getAllTemperaments = async () => {
-//     const res = await axios.get(`${API}?key=${APIKEY}`);
-//     const data = res.data;
-//     const temperaments = data.results.map((el) => el.temperament).sort();
-//     return temperaments;
-// }
 
 
 module.exports = {

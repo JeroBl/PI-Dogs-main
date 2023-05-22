@@ -27,35 +27,6 @@ const getApiInfo = async () => {
 //dogs de DB
 
 
-// const getDbInfo = async () => {
-//     let dogDB = await Dog.findAll({
-//         include:{
-//             model: Temperament,
-//             attributes: ["name"],
-//             through: {
-//                 attributes:[],
-//             }
-//         }
-//     })
-
-
-// const temperamentDB = dogDB.map((el) => {
-//     return {
-//         id: el.id,
-//         name: el.name,
-//         image: el.image,
-//         height: el.height,
-//         weight: el.weight,
-//         life_span: el.life_span,
-//         createdInDb: true,
-//         temperament:el.temperament?.map(temperament => temperament.name),
-//     };
-// });
-// return temperamentDB
-// }
-
-
-
 const getDbInfo = async () => {
     let dogDB = await Dog.findAll({
         include:{

@@ -91,12 +91,20 @@ export const orderWeight = (payload) => {
     }
 }
 
-export const filterByOrigin = (origin) => {
-    return {
-      type: FILTER_BY_ORIGIN,
-      payload: origin,
-    };
-  };
+export const filterByOrigin = (origin) => (dispatch, getState) => {
+  dispatch({
+    type: FILTER_BY_ORIGIN,
+    payload: origin,
+  });
+
+  const state = getState();
+  const selectedTemperament = state.temperamentFilter;
+
+  if (selectedTemperament) {
+    dispatch(filterByTemperament(selectedTemperament));
+  }
+};
+
 
 export const filterByTemperament = (payload) => {
     return {
@@ -117,5 +125,4 @@ export const resetFilters = () => {
       type: "RESET_FILTERS",
     };
   };
-   
   

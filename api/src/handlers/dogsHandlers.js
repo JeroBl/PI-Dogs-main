@@ -1,4 +1,3 @@
-
 const {getApiInfo, getAllDogs, getDbInfo, getDogByID } = require("../controllers/dogsControllers");
 const { Dog, Temperament} = require("../db");
 
@@ -23,7 +22,6 @@ const getDogsHandler = async (req,res) =>{
     }
     
 }
-
 
 
 // Retorna el dog por ID
@@ -78,7 +76,6 @@ const createDogHandler = async (req,res) => {
 
     
 };
-
 
 
 

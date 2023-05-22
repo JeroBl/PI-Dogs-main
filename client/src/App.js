@@ -14,11 +14,6 @@ function App() {
       <Route path="/home" render={() => <Home/>} />
       <Route exact path="/dogs/detail/:id" render={(props) => <Detail {...props}/>} />
       <Route exact path="/create" render={() => <Form/>} />
-      
-        
-
-      
-      
     </div>
   );
 }

@@ -78,6 +78,12 @@ const Home = () => {
     dispatch(filterByTemperament(selectedTemperament));
   };
 
+  const clearFilters = () => {
+    dispatch(filterByOrigin(null));
+    dispatch(filterByTemperament(null));
+  };
+
+
   return (
     <div>
       <SearchBar />
@@ -154,8 +160,6 @@ const Home = () => {
 };
 
 export default Home;
-
-
 
 
 

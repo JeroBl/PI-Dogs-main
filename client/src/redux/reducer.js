@@ -19,6 +19,8 @@ const initialState = {
   dogName: null,
   temperamentFilter: null,
   temperaments: [],
+  filteredByOrigin: [],
+  originFilter: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -92,39 +94,74 @@ const rootReducer = (state = initialState, action) => {
         dogs: sortedWeight,
       };
     case FILTER_BY_ORIGIN:
-      const filteredDogs = state.allDogs.filter((dog) => {
-        if (action.payload === "DB") {
-          return dog.createdInDb;
-        } else if (action.payload === "API") {
-          return !dog.createdInDb;
+      const selectedOrigin = action.payload;
+        let filteredByOrigin = [];
+          if (selectedOrigin === "DB") {
+          filteredByOrigin = state.allDogs.filter((dog) => dog.createdInDb);
+        } else if (selectedOrigin === "API") {
+          filteredByOrigin = state.allDogs.filter((dog) => !dog.createdInDb);
+        } else {
+         filteredByOrigin = state.allDogs;
         }
-        return true;
-      });
+
+  let filteredByTemperament = [];
+    if (state.temperamentFilter) {
+    filteredByTemperament = filteredByOrigin.filter(
+      (dog) =>
+        (dog.temperament && dog.temperament.includes(state.temperamentFilter)) ||
+        (dog.temperaments &&
+          dog.temperaments.some((temp) => temp.name === state.temperamentFilter))
+    );
+  } else {
+    filteredByTemperament = filteredByOrigin;
+  }
+
+  return {
+    ...state,
+    dogs: filteredByTemperament,
+    filteredByOrigin: filteredByOrigin,
+    originFilter: selectedOrigin,
+  };
+  
+  case FILTER_BY_TEMPERAMENT:
+  const selectedTemperament = action.payload;
+  if (selectedTemperament === "") {
+    if (state.originFilter) {
       return {
         ...state,
-        dogs: filteredDogs,
+        dogs: state.filteredByOrigin,
+        temperamentFilter: null,
       };
-    case FILTER_BY_TEMPERAMENT:
-      const selectedTemperament = action.payload;
-      if (selectedTemperament === "") {
+    } else {
       return {
-      ...state,
-      dogs: state.allDogs,
-      temperamentFilter: null,
+        ...state,
+        dogs: state.allDogs,
+        temperamentFilter: null,
       };
-      } else {
-      const filteredByTemperament = state.allDogs.filter((dog) =>
-      (dog.temperament && dog.temperament.includes(selectedTemperament)) ||
-      (dog.temperaments && dog.temperaments.some((temp) => temp.name === selectedTemperament))
+    }
+  } else {
+    let filteredByTemperament = [];
+    if (state.originFilter) {
+      filteredByTemperament = state.filteredByOrigin.filter(
+        (dog) =>
+          (dog.temperament && dog.temperament.includes(selectedTemperament)) ||
+          (dog.temperaments &&
+            dog.temperaments.some((temp) => temp.name === selectedTemperament))
       );
-      return {
+    } else {
+      filteredByTemperament = state.allDogs.filter(
+        (dog) =>
+          (dog.temperament && dog.temperament.includes(selectedTemperament)) ||
+          (dog.temperaments &&
+            dog.temperaments.some((temp) => temp.name === selectedTemperament))
+      );
+    }
+    return {
       ...state,
       dogs: filteredByTemperament,
       temperamentFilter: selectedTemperament,
-      };
-      }
-
-      
+    };
+  } 
     case RESET_FILTERS:
       return {
         ...state,
@@ -137,5 +174,4 @@ const rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-
 
