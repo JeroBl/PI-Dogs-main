@@ -166,6 +166,8 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         dogs: state.allDogs,
+        filteredByOrigin: [],
+        originFilter: null,
         temperamentFilter: null,
       };
     default:
@@ -174,4 +176,3 @@ const rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-

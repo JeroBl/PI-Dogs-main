@@ -6,9 +6,9 @@ const { getDogHandler, getDogsHandler, createDogHandler } = require("../handlers
 const { validate } = require("../middlewares/middlewares.js");
 
 
-router.get("/", getDogsHandler);   //busca todos API y DB y si se le pasa una query filtra por query
+router.get("/", getDogsHandler); //busca todos los perros de API y DB y si se le pasa uno query filtra por query
 
-router.get("/detail/:id", getDogHandler); //busca por ID
+router.get("/:id", getDogHandler); //busca por ID
 
 router.post("/", validate, createDogHandler)  //crea por body
  

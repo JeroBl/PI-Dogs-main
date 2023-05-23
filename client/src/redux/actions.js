@@ -51,7 +51,7 @@ export const getDogs = () => {
 
 export const getDog = (id) => {
     return async function (dispatch) {
-        const IDDog = await axios.get(`http://localhost:3001/dogs/detail/${id}`);
+        const IDDog = await axios.get(`http://localhost:3001/dogs/${id}`);
         const dog = IDDog.data;
             dispatch({type:GET_DOG, payload: dog})
     };
@@ -126,3 +126,5 @@ export const resetFilters = () => {
     };
   };
   
+
+

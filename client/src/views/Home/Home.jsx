@@ -26,12 +26,21 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const temperaments = useSelector((state) => state.temperaments);
   const [selectedTemperament, setSelectedTemperament] = useState("");
-  const [firstPage, setFirstPage] = useState(1); 
+  const [firstPage, setFirstPage] = useState(1);
+  const [dogsLoaded, setDogsLoaded] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+    setDogsLoaded(false); 
     dispatch(getDogs())
-      .then(() => setLoading(false)) 
-      .catch(() => setLoading(false)); 
+      .then(() => {
+        setLoading(false);
+        setDogsLoaded(true); 
+      })
+      .catch(() => {
+        setLoading(false);
+        setDogsLoaded(false); 
+      });
 
     dispatch(getTemperaments());
   }, [dispatch]);
@@ -50,15 +59,14 @@ const Home = () => {
 
   const handleFilterOrigin = (origin) => {
     setFilterOrigin(origin);
-    dispatch(filterByOrigin(origin));
-    setCurrentPage(1); //para que cuando filtro por DB o API renderice en la primera pagina
-  };
-
-  const handleResetFilters = () => {
-    dispatch(resetFilters());
+    if (origin === "Both") {
+      dispatch(getDogs());
+    } else {
+      dispatch(filterByOrigin(origin));
+    }
     setCurrentPage(1);
-    setSelectedTemperament("");
   };
+  
 
   const goToPreviousPage = () => {
     setCurrentPage(currentPage - 1);
@@ -75,19 +83,27 @@ const Home = () => {
   const handleTemperamentChange = (event) => {
     const selectedTemperament = event.target.value;
     setSelectedTemperament(selectedTemperament);
-    dispatch(filterByTemperament(selectedTemperament));
+  
+    if (filterOrigin === "Both") {
+  
+      dispatch(getDogs()).then(() => {
+        dispatch(filterByTemperament(selectedTemperament));
+      });
+    } else {
+      dispatch(filterByTemperament(selectedTemperament));
+    }
   };
+  
 
-  const clearFilters = () => {
-    dispatch(filterByOrigin(null));
-    dispatch(filterByTemperament(null));
+  const handleResetFilters = () => {
+    dispatch(resetFilters());
+    setCurrentPage(1);
+    setSelectedTemperament("");
   };
-
 
   return (
     <div>
       <SearchBar />
-      
 
       <div className={styles.filtersContainer}>
         <div className={styles.orderContainer}>
@@ -105,7 +121,10 @@ const Home = () => {
           <h4>Filtrar: </h4>
           <button onClick={() => handleFilterOrigin("DB")}>Perros de: DB</button>
           <button onClick={() => handleFilterOrigin("API")}>Perros de: API</button>
-          <button onClick={handleResetFilters} className={`${styles.deleteFiltersButton} ${styles.button}`}>Eliminar filtros</button>
+          <button onClick={() => handleFilterOrigin("Both")}>Perros de: Ambos</button>
+          <button onClick={handleResetFilters} className={`${styles.deleteFiltersButton} ${styles.button}`}>
+            Eliminar selección
+          </button>
         </div>
       </div>
 
@@ -127,7 +146,7 @@ const Home = () => {
             onClick={goToFirstPage}
             disabled={currentPage === firstPage}
             className={styles.paginationButton}
-            >
+          >
             Primera
           </button>
 
@@ -135,33 +154,26 @@ const Home = () => {
             onClick={goToPreviousPage}
             disabled={currentPage === firstPage}
             className={styles.paginationButton}
-            >
+          >
             Anterior
           </button>
 
-          <button
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            className={styles.paginationButton}
-            >
+          <button onClick={goToNextPage} disabled={currentPage === totalPages} className={styles.paginationButton}>
             Siguiente
           </button>
         </div>
       </div>
 
-            {loading && <h3>Loading...</h3>}
+      {loading && <h3>Cargando...</h3>}
       <CardsContainer
         className={styles.cards}
         currentPage={currentPage}
         dogsPerPage={dogsPerPage}
+        dogsLoaded={dogsLoaded}
+        loading={loading} 
       />
     </div>
   );
 };
 
 export default Home;
-
-
-
-
-
