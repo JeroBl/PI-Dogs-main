@@ -1,9 +1,9 @@
-const {getApiInfo, getAllDogs, getDbInfo, getDogByID } = require("../controllers/dogsControllers");
+const { getAllDogs, getDogByID } = require("../controllers/dogsControllers");
 const { Dog, Temperament} = require("../db");
 
 
 
-//Retorna todos los dogs si no se le pasa nada por query, sino busca la query 
+//Retorna todos los dogs si no se le pasa name por query, sino busca la query 
 
 const getDogsHandler = async (req,res) =>{
     try {

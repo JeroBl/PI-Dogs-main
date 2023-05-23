@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-const { Dog, Temperament} = require("../db.js");
-const Sequelize = require ("sequelize");
-const { getDogHandler, getDogsHandler, createDogHandler, getDogByNameHandler } = require("../handlers/dogsHandlers.js");
+// const { Dog, Temperament} = require("../db.js");
+// const Sequelize = require ("sequelize");
+const { getDogHandler, getDogsHandler, createDogHandler } = require("../handlers/dogsHandlers.js");
 const { validate } = require("../middlewares/middlewares.js");
 
 
@@ -15,4 +15,4 @@ router.post("/", validate, createDogHandler)  //crea por body
 
 
 
-module.exports = router;
+module.exports = router; 
