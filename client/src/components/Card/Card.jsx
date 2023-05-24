@@ -2,11 +2,11 @@ import { useHistory } from 'react-router-dom';
 import styles from "./Card.module.css";
 
 const Card = (props) => {
-  const history = useHistory();
+  const history = useHistory();  //instancia para acceder al historial de navegacion y redireccionar
   const createdInDb = props.createdInDb;
 
   const handleClick = (id) => {
-    history.push(`/dogs/detail/${id}`);
+    history.push(`/dogs/detail/${id}`);  //history.push redirecciono al detail
   };
 
   if (createdInDb) {

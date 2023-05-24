@@ -26,6 +26,8 @@ const Form = () => {
   });
 
   const [temperamentList, setTemperamentList] = useState([]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
 
   useEffect(() => {
     axios.get("http://localhost:3001/temperaments")
@@ -44,6 +46,7 @@ const Form = () => {
     }
 
     setForm({ ...form, [property]: value });
+    checkFormValidity();
   };
 
   const validateField = (fieldName, value) => {
@@ -106,11 +109,18 @@ const Form = () => {
     return "";
   };
 
+  const checkFormValidity = () => {
+    const isFormValid = Object.values(errors).every(error => error === "");
+    const isFormEmpty = Object.values(form).some(value => value === "");
+    setIsButtonDisabled(!isFormValid || isFormEmpty);
+  };
+
   const blurHandler = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
     const errorMessage = validateField(fieldName, value);
     setErrors({ ...errors, [fieldName]: errorMessage });
+    checkFormValidity();
   };
 
   const submitHandler = (event) => {
@@ -208,14 +218,11 @@ const Form = () => {
         <input type="text" value={form.image} onChange={changeHandler} onBlur={blurHandler} name="image" className="form-input" />
       </div>
 
-      <button type="submit" className="form-button">Crear</button>
+      <button type="submit" className="form-button" disabled={isButtonDisabled}>Crear</button>
     </form>
   );
 };
 
 export default Form;
-
-
-
 
 

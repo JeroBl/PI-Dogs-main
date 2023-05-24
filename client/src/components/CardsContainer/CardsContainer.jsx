@@ -3,7 +3,8 @@ import Card from "../Card/Card";
 import styles from "./CardsContainer.module.css";
 
 const CardsContainer = ({ currentPage, dogsPerPage, dogsLoaded, loading }) => { 
-  const dogs = useSelector(state => state.dogs);
+  const dogs = useSelector(state => state.dogs); //mira al estado global
+
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
   const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);

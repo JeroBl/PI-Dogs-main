@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getDogs,
-  orderAlfabetic,
-  orderWeight,
-  filterByOrigin,
-  resetFilters,
-  getTemperaments,
-  filterByTemperament,
-} from "../../redux/actions";
+import { getDogs, orderAlfabetic, orderWeight, filterByOrigin, resetFilters, getTemperaments, filterByTemperament } from "../../redux/actions";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import styles from "./Home.module.css";
 
 const Home = () => {
   const dogsPerPage = 8;
-  const dogs = useSelector((state) => state.dogs);
+  const dogs = useSelector((state) => state.dogs);  //mira al estado global
   const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
   const dispatch = useDispatch();
@@ -177,3 +169,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+

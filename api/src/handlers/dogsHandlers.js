@@ -49,11 +49,11 @@ const createDogHandler = async (req,res) => {
         life_span,
         createdInDb,
         temperaments  
-    } = req.body;
+    } = req.body;  //extrae las propiedades del cuerpo de la solicitud
 
     try {
         
-        let dogCreated = await Dog.create({
+        let dogCreated = await Dog.create({ //crea un nuevo registro de perro en la base de datos utilizando el modelo Dog
             image,
             name,
             height,
@@ -61,12 +61,12 @@ const createDogHandler = async (req,res) => {
             life_span,
             createdInDb
         })
-    
-        let temperamentDB = await Temperament.findAll({
+         
+        let temperamentDB = await Temperament.findAll({ //busca los registros de temperamentos
             where: { name: temperaments }
         })
     
-        await dogCreated.addTemperament(temperamentDB)
+        await dogCreated.addTemperament(temperamentDB) //asocia los temperamentos encontrados al perro creado
         
         res.status(201).json({ message: "Dog creado con éxito" });
     
