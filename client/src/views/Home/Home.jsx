@@ -12,8 +12,8 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true); //crea una variable de estado, y funcion para actualizar ese estado
-  const [orderDirection, setOrderDirection] = useState("A-Z");
+  const [loading, setLoading] = useState(true); //crea una variable de estado, y una funcion para actualizar ese estado
+  const [orderDirection, setOrderDirection] = useState("Z-A");
   const [orderWeightDirection, setOrderWeightDirection] = useState("asc");
   const [filterOrigin, setFilterOrigin] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,7 +102,7 @@ const Home = () => {
         <div className={styles.orderContainer}>
           <h4>Ordenar: </h4>
           <button onClick={handleOrderButtonClick}>
-            Nombre: {orderDirection === "A-Z" ? "Z-A" : "A-Z"}
+            Nombre: {orderDirection === "Z-A" ? "A-Z" : "Z-A"}
           </button>
 
           <button onClick={handleOrderWeightButtonClick}>

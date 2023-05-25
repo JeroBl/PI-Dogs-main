@@ -10,7 +10,7 @@ router.get("/", getDogsHandler); //busca todos los perros de API y DB y si se le
 
 router.get("/:id", getDogHandler); //busca por ID
 
-router.post("/", validate, createDogHandler)  //crea por body
+router.post("/", createDogHandler)  //crea por body
  
 
 
