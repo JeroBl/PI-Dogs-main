@@ -23,7 +23,7 @@ const initialState = {
   originFilter: null,
 };
 
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => { // recibe estaod actual y accion y devuelve un nuevo estado actualizado
   switch (action.type) {
     case GET_DOGS:
       return {
@@ -55,6 +55,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
     case ORDER_ALFABETIC:
       const sortedName = state.dogs.slice().sort((a, b) => {
         return action.payload === "A-Z"
@@ -66,6 +67,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: sortedName,
       };
+
     case ORDER_WEIGHT:
       const sortedWeight = state.dogs.slice().sort((a, b) => {
         let weightA, weightB;
@@ -93,6 +95,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         dogs: sortedWeight,
       };
+
+
     case FILTER_BY_ORIGIN:
       const selectedOrigin = action.payload;
         let filteredByOrigin = [];
@@ -122,10 +126,11 @@ const rootReducer = (state = initialState, action) => {
     filteredByOrigin: filteredByOrigin,
     originFilter: selectedOrigin,
   };
+
   
   case FILTER_BY_TEMPERAMENT:
   const selectedTemperament = action.payload;
-  if (selectedTemperament === "") {
+  if (selectedTemperament === "") { //filtre por origen y no por temperamento
     if (state.originFilter) {
       return {
         ...state,
@@ -139,9 +144,9 @@ const rootReducer = (state = initialState, action) => {
         temperamentFilter: null,
       };
     }
-  } else {
+  } else { // si no esta vacio la seleccion de temperamento seguimos
     let filteredByTemperament = [];
-    if (state.originFilter) {
+    if (state.originFilter) { //si se filtro primero por origen
       filteredByTemperament = state.filteredByOrigin.filter(
         (dog) =>
           (dog.temperament && dog.temperament.includes(selectedTemperament)) ||
@@ -149,7 +154,7 @@ const rootReducer = (state = initialState, action) => {
             dog.temperaments.some((temp) => temp.name === selectedTemperament))
       );
     } else {
-      filteredByTemperament = state.allDogs.filter(
+      filteredByTemperament = state.allDogs.filter( // si no se filtro por origen
         (dog) =>
           (dog.temperament && dog.temperament.includes(selectedTemperament)) ||
           (dog.temperaments &&
@@ -162,6 +167,7 @@ const rootReducer = (state = initialState, action) => {
       temperamentFilter: selectedTemperament,
     };
   } 
+
     case RESET_FILTERS:
       return {
         ...state,
@@ -170,6 +176,7 @@ const rootReducer = (state = initialState, action) => {
         originFilter: null,
         temperamentFilter: null,
       };
+      
     default:
       return state;
   }

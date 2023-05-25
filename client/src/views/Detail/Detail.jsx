@@ -4,7 +4,7 @@ import { getDog, CleanDetail } from "../../redux/actions";
 import style from "./Detail.module.css";
 
 const Detail = (props) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const dog = useSelector((state) => state.dog);
   const [loading, setLoading] = useState(true);
 

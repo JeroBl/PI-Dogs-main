@@ -3,7 +3,7 @@ import axios from 'axios';
 import style from "./Form.module.css";
 
 const Form = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState({ // estado que contiene los valores de los campos del form
     name: "",
     minHeight: "",
     maxHeight: "",
@@ -25,7 +25,7 @@ const Form = () => {
     image: "",
   });
 
-  const [temperamentList, setTemperamentList] = useState([]);
+  const [temperamentList, setTemperamentList] = useState([]); //almacena los temp.
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
 
@@ -37,7 +37,7 @@ const Form = () => {
       .catch(err => console.log(err));
   }, []);
 
-  const changeHandler = (event) => {
+  const changeHandler = (event) => { //ejecuta cuando hay evento de cambio en el form y actualiza el estado form
     const property = event.target.name;
     let value = event.target.value;
 
@@ -45,7 +45,7 @@ const Form = () => {
       value = Array.from(event.target.selectedOptions, option => option.value);
     }
 
-    setForm({ ...form, [property]: value });
+    setForm({ ...form, [property]: value }); //sobreescribe la prop especifica
     checkFormValidity();
   };
 
@@ -109,33 +109,33 @@ const Form = () => {
     return "";
   };
 
-  const checkFormValidity = () => {
+  const checkFormValidity = () => { //mira errores, o campos vacios, para actualizar la func isButtonDisabled
     const isFormValid = Object.values(errors).every(error => error === "");
     const isFormEmpty = Object.values(form).some(value => value === "");
     setIsButtonDisabled(!isFormValid || isFormEmpty);
   };
 
-  const blurHandler = (event) => {
+  const blurHandler = (event) => { //ejecuta cuando el campo pierde el "foco"
     const fieldName = event.target.name;
     const value = event.target.value;
     const errorMessage = validateField(fieldName, value);
     setErrors({ ...errors, [fieldName]: errorMessage });
-    checkFormValidity();
+    checkFormValidity();  //verifica validez del form
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
+    event.preventDefault(); //evita que la pagina se recargue
 
-    const isFormValid = Object.values(errors).every(error => error === "");
+    const isFormValid = Object.values(errors).every(error => error === ""); //verifica que los errores sean cadenas vacias
     if (!isFormValid) {
       alert("Debe completar todos los campos correctamente antes de crear el perro.");
       return;
     }
-
-    const height = `${form.minHeight}-${form.maxHeight}`;
+    
+    const height = `${form.minHeight}-${form.maxHeight}`; 
     const weight = `${form.minWeight}-${form.maxWeight}`;
 
-    const newForm = {
+    const newForm = { //nuevo objeto del form
       ...form,
       height: height,
       weight: weight

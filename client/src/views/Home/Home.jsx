@@ -7,11 +7,12 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   const dogsPerPage = 8;
-  const dogs = useSelector((state) => state.dogs);  //mira al estado global
+  const dogs = useSelector((state) => state.dogs);  //mira al estado global para obtener el estado global de redux y traer a dogs
   const totalPages = Math.ceil(dogs.length / dogsPerPage);
 
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+
+  const [loading, setLoading] = useState(true); //crea una variable de estado, y funcion para actualizar ese estado
   const [orderDirection, setOrderDirection] = useState("A-Z");
   const [orderWeightDirection, setOrderWeightDirection] = useState("asc");
   const [filterOrigin, setFilterOrigin] = useState(null);
@@ -21,7 +22,7 @@ const Home = () => {
   const [firstPage, setFirstPage] = useState(1);
   const [dogsLoaded, setDogsLoaded] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { //cuando se monta o hay un cambio en el array de dependencias
     setLoading(true);
     setDogsLoaded(false); 
     dispatch(getDogs())
@@ -111,9 +112,9 @@ const Home = () => {
 
         <div className={styles.filterContainer}>
           <h4>Filtrar: </h4>
-          <button onClick={() => handleFilterOrigin("DB")}>Perros de: DB</button>
+          <button onClick={() => handleFilterOrigin("DB")}>Perros de: BD</button>
           <button onClick={() => handleFilterOrigin("API")}>Perros de: API</button>
-          <button onClick={() => handleFilterOrigin("Both")}>Perros de: Ambos</button>
+          {/* <button onClick={() => handleFilterOrigin("Both")}>Perros de: Ambos</button> */}
           <button onClick={handleResetFilters} className={`${styles.deleteFiltersButton} ${styles.button}`}>
             Eliminar selección
           </button>
@@ -150,7 +151,9 @@ const Home = () => {
             Anterior
           </button>
 
-          <button onClick={goToNextPage} disabled={currentPage === totalPages} className={styles.paginationButton}>
+          <button onClick={goToNextPage} 
+          disabled={currentPage === totalPages} 
+          className={styles.paginationButton}>
             Siguiente
           </button>
         </div>

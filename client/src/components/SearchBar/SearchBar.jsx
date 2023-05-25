@@ -5,16 +5,22 @@ import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const [searchDog, setSearchDog] = useState("");
+  const [searchDog, setSearchDog] = useState(""); //variable de estado vacio, y funcion para actualizar ese estado
 
   const handleInput = (e) => {
-    setSearchDog(e.target.value);
+    setSearchDog(e.target.value); //cuando hay cambia campo de entrada, actualiza el estado searchDog
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getDogName(searchDog));
+    dispatch(getDogName(searchDog)); //despacha con valor de searchDog
     setSearchDog("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
   };
 
   return (
@@ -25,6 +31,7 @@ export default function SearchBar() {
           type="text"
           value={searchDog}
           onChange={handleInput}
+          onKeyDown={handleKeyDown}
           placeholder="Search..."
         />
         <button

@@ -3,11 +3,11 @@ import Card from "../Card/Card";
 import styles from "./CardsContainer.module.css";
 
 const CardsContainer = ({ currentPage, dogsPerPage, dogsLoaded, loading }) => { 
-  const dogs = useSelector(state => state.dogs); //mira al estado global
+  const dogs = useSelector(state => state.dogs); //optener el estado global, propiedad dogs
 
-  const indexOfLastDog = currentPage * dogsPerPage;
-  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
+  const indexOfLastDog = currentPage * dogsPerPage; //calculo el indice del ultimo perro de la pag actual multiplicando el numero de la pag actual por cantidad de perros
+  const indexOfFirstDog = indexOfLastDog - dogsPerPage; //calculo el indice del primer perro
+  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog); //obtengo los perros de la pag que corresponde
 
   return (
     <div className={styles.container}>
