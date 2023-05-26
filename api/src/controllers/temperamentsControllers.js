@@ -4,7 +4,9 @@ const{ API, APIKEY} = process.env;
 const { Temperament } = require("../db.js");
 
 const getAllTemperaments = async (req,res) => {
-    const temperamentsApi = await axios.get(`${API}?key=${APIKEY}`);
+    let findTemp = await Temperament.findAll();    
+    if(findTemp.length === 0){
+        const temperamentsApi = await axios.get(`${API}?key=${APIKEY}`);
     const temperaments = temperamentsApi.data.map(e => e.temperament);
     const temps = temperaments.toString().split(",");
     temps.forEach(el => {
@@ -13,8 +15,10 @@ const getAllTemperaments = async (req,res) => {
              where: { name: i }
         })
     })
+    findTemp = await Temperament.findAll();
+    }
+    
 
-    const findTemp = await Temperament.findAll();    
     return findTemp
 
 

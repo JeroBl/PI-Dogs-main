@@ -38,6 +38,10 @@ const Home = () => {
     dispatch(getTemperaments());
   }, [dispatch]);
 
+  useEffect(()=> {
+    setCurrentPage(1);
+  },[dogs])
+
   const handleOrderButtonClick = () => {
     const newOrderDirection = orderDirection === "A-Z" ? "Z-A" : "A-Z";
     dispatch(orderAlfabetic(newOrderDirection));
@@ -123,7 +127,7 @@ const Home = () => {
 
       <div>
         <label>Temperamentos: </label>
-        <select value={selectedTemperament} onChange={handleTemperamentChange}>
+        <select value={selectedTemperament} onChange={handleTemperamentChange}> {/*value = selectedTemperament para representar el temperamento seleccionado*/} 
           <option value="">Todos los temperamentos</option>
           {temperaments.map((temperament) => (
             <option key={temperament.id} value={temperament.name}>
@@ -150,6 +154,9 @@ const Home = () => {
           >
             Anterior
           </button>
+            <div>
+              <p>{currentPage}</p>
+            </div>
 
           <button onClick={goToNextPage} 
           disabled={currentPage === totalPages} 

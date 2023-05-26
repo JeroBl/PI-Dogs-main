@@ -23,7 +23,7 @@ const initialState = {
   originFilter: null,
 };
 
-const rootReducer = (state = initialState, action) => { // recibe estaod actual y accion y devuelve un nuevo estado actualizado
+const rootReducer = (state = initialState, action) => { // recibe estado actual y accion y devuelve un nuevo estado actualizado
   switch (action.type) {
     case GET_DOGS:
       return {
@@ -69,7 +69,7 @@ const rootReducer = (state = initialState, action) => { // recibe estaod actual 
       };
 
     case ORDER_WEIGHT:
-      const sortedWeight = state.dogs.slice().sort((a, b) => {
+      const sortedWeight = state.dogs.slice().sort((a, b) => { //realizo copia del estado y ordeno
         let weightA, weightB;
 
         if (a.createdInDb) {
